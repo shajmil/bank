@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { async } from 'rxjs';
 import Swal from 'sweetalert2';
-import { DatabaseService } from '../services/database.service';
+import { DatabaseService } from '../../services/database.service';
 
 // import {SidebarModule} from 'primeng/sidebar';
 import { By } from '@angular/platform-browser';

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 
 import {MatSidenavModule} from '@angular/material/sidenav'; 
@@ -28,12 +28,12 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
-import { OrdersComponent } from './orders/orders.component';
+import { OrdersComponent } from './admin/orders/orders.component';
 
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from './admin/about/about.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DemoComponent } from './about/demo/demo.component';
-import { ProductsComponent } from './about/products/products.component';
+import { DemoComponent } from './admin/about/demo/demo.component';
+import { ProductsComponent } from './admin/about/products/products.component';
 import { ListviewComponent } from './listview/listview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './registration/registration.component';
