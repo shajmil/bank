@@ -92,15 +92,17 @@ email:any
        
       };
     this.ds.getusers().subscribe((result:any)=>{
-      console.log('result: ',);
+      // console.log('result: ',);
  this.images=[]
-  var employeeIds = result.message.forEach((user:any) =>{ console.log(user.img.data.data)
+ console.log('result.message: ', result.message);
+  var employeeIds = result.message.forEach((user:any) =>{ 
       this.img  (user.img.data.data)
+      // console.log(' this.img  (user.img.data.data): ',  this.img  (user.img.data.data));
    
     });
 
 
-    console.log('this.images: ', this.images);
+    // console.log('this.images: ', this.images);
     this.users= result.message
 
 
@@ -116,7 +118,7 @@ email:any
       // console.log('this.users: ', this.users);
     
     })
-    this.ngOnInit() 
+    // this.ngOnInit() 
   }
 
 view(t:any){
@@ -290,6 +292,7 @@ this.ngOnInit()
 this.users=this.users.filter((re: any) =>{
   return re.firstname.toLocaleLowerCase().match(this.filter.toLocaleLowerCase())
 })
+console.log('this.users: ', this.users);
 // console.log('this.users: ', this.users);
 }
 }
