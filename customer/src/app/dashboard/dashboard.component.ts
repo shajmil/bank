@@ -116,7 +116,7 @@ email:any
       // console.log('this.users: ', this.users);
     
     })
-    this.ngOnInit() 
+    // this.ngOnInit() 
   }
 
 view(t:any){
