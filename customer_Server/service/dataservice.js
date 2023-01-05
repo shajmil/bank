@@ -3,12 +3,12 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const login =async (acno,pswd) =>{
   const user = await db.admin.findOne({ username:acno })
-  console.log('user: ', user);
-  console.log(pswd,acno);
+  // console.log('user: ', user);
+  // console.log(pswd,acno);
   const cmp = await bcrypt.compare(pswd, user.password);
   if( cmp){
 
-    return db.user.findOne({username:acno,password:pswd}).then( user =>{
+    return db.admin.findOne({username:acno}).then( user =>{
       
       
       // console.log('pswd: ', pswd);
@@ -190,9 +190,12 @@ const update = (id,firstname,lastname,email,city,address,gender)=>{
     const showcust=()=>{
         return db.user.find().then(users=>{
             // console.log('users: ', users);
-            var b = Buffer.from(users[0].img.data).toString('base64')
+            if(users){
+
+         
+            // var b = Buffer.from(users[0].img.data).toString('base64')
           // console.log('b: ', b);
-          users[0].img=b;
+          // users[0].img=b;
 // var s = b.toString();
 // console.log('s: ', s);
             return {
@@ -200,7 +203,7 @@ const update = (id,firstname,lastname,email,city,address,gender)=>{
                 status: 'success',
                 message:users
               }
-
+            }
 
     })}
     const deleteCus=(email)=>{

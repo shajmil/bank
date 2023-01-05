@@ -30,7 +30,7 @@ app.post('/login',async (req,res)=>{
             
             res.status(result.statuscode).json(result)})
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(500).send("Internal Server error Occured");
       }
 
