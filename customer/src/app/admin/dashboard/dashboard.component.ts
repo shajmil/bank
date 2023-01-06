@@ -8,7 +8,8 @@ import { async } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DatabaseService } from '../../services/database.service';
 
-// import {SidebarModule} from 'primeng/sidebar';
+import { ModalComponent } from 'src/app/modal/modal.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { By } from '@angular/platform-browser';
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import { By } from '@angular/platform-browser';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  modalRef: MdbModalRef<ModalComponent> | null = null;
   @ViewChild('sidenav')sidenav!: MatSidenav;
   images:any=[]
 email:any
@@ -48,17 +49,19 @@ email:any
  cardStatus:any=true;
  img:any
  listStatus:any=false;
- 
-  constructor(private sanitizer: DomSanitizer,private ds:DatabaseService,private fs:FormBuilder ,private route:Router,private fb:FormBuilder) {
+  constructor(private modalService: MdbModalService,private sanitizer: DomSanitizer,private ds:DatabaseService,private fs:FormBuilder ,private route:Router,private fb:FormBuilder) {
   
  
 
-
-
+   
 
 
 
 }
+openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
+})
+}
+
 // console.log('this.users: ', this.users);
 // console.log(this.users);
 

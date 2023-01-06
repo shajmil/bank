@@ -4,7 +4,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 
@@ -37,6 +37,7 @@ import { ProductsComponent } from './admin/about/products/products.component';
 import { ListviewComponent } from './listview/listview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './registration/registration.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RegistrationComponent } from './registration/registration.component';
     DemoComponent,
     ProductsComponent,
     RegistrationComponent,
+    ModalComponent,
 
 
 
@@ -79,6 +81,7 @@ import { RegistrationComponent } from './registration/registration.component';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule,
+    MatSlideToggleModule,
     ReactiveFormsModule,
     NgxPaginationModule
   ],
