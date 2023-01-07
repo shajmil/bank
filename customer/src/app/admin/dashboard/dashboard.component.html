@@ -7,21 +7,21 @@
         <mat-sidenav-container
         class="example-container side bg-white" (backdropClick)="close('backdrop')" >
         <div>
-            <h3 class="text-dark fs-5 ps-3">   <i class="fa fa-user " aria-hidden="true"></i> Customers</h3>
+            <h3 class="text-dark fs-5 ps-3">   <i class="fa fa-user " aria-hidden="true"></i> ADMIN</h3>
 
             
             <div class="container-fluid  mt-5">
     
             <div class="d-sm-flex justify-content-between">
     <div class="d-flex gap-5">
-        <a (click)="card()"> Card View</a>
-        <a (click)="list()"> List View</a>
+        <a (click)="card()"> Teacher View</a>
+        <a (click)="list()"> Class View</a>
         <a (click)="new()"  mat-button (click)="sidenav.open()" > New Teacher</a>
         <a (click)="openModal() " > New Class</a>
     </div>
     <div>
-        <label for="search bg-text">filter</label>
-        <input class="form-control" type="text" #filertext  name="" [(ngModel)]="filter " (keydown)="key($event)" (ngModelChange)="search()">
+        <label for="search bg-text" *ngIf="!listStatus" >filter</label>
+        <input class="form-control" type="text" #filertext *ngIf="!listStatus"  name="" [(ngModel)]="filter " (keydown)="key($event)" (ngModelChange)="search()">
    
     </div>
     
@@ -53,7 +53,7 @@
                 </div>
                 <div>
     
-                    <h5 class="card-title">{{i.city}}</h5>
+                    <h2 class="card-title">{{i.course}}</h2>
                     <p class="card-text">{{i.address}}</p>
                     <a class="border-bottom border-4 text-primary  " (click)="view(i)  "  (click)="sidenav.open()">view more</a>
                 </div>
@@ -68,7 +68,7 @@
         </pagination-controls>
       </div>
     </div>
-    <app-listview [item]="users" [listStatus]="listStatus" [total]="totalRecords" ></app-listview>
+    <app-listview [item]="coursers" [listStatus]="listStatus" [total]="totalRecords" ></app-listview>
     </div>
     </div>
         
@@ -95,19 +95,19 @@
                       <input type="email" class="form-control" id="email"  formControlName="email"  type="text" name="email" aria-describedby="emailHelp">
                       <p [ngStyle]="{color:'red'}" *ngIf=" f.email.errors?.['pattern'] && f.email?.touched"> enter valid email</p>
     
+                    </div> <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">password <span class="text-danger"> *</span></label>
+                  
+                      <input type="password" class="form-control" id="password"  formControlName="password"  type="text" name="password" aria-describedby="passwordHelp">
+                      <p [ngStyle]="{color:'red'}" *ngIf=" f.password.errors?.['pattern'] && f.password?.touched"> enter valid email</p>
+    
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"> address</label>
                     <textarea  class="form-control" id="address"  formControlName="address"  type="text" name="address" aria-describedby="addressHelp" name="" id="" cols="5" rows="5"></textarea>
                   
       
-                      </div>    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">City</label>
-                    
-                        <input type="city" class="form-control" id="city"  formControlName="city"  type="text" name="city" aria-describedby="cityHelp">
-                        <p [ngStyle]="{color:'red'}" *ngIf=" f.city.errors?.['pattern'] && f.city?.touched"> enter valid email</p>
-      
-                      </div>
+                      </div>   
                     <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">gender</label>
                   <input
@@ -129,8 +129,20 @@
                
                 </div>
                 <div class="mb-3">
-                  <input type="file" name="image" id="image" (change)="image($event)">
+                  <input type="file" #myInput name="image" id="image" (change)="image($event)" accept="image/*" >
                 </div>
+                <div class="mb-3">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Class</mat-label>
+                    <mat-select [(ngModel)]="selected" name="food"  [ngModelOptions]="{standalone: true}">
+                      <mat-option *ngFor="let i of coursers" [value]="i.className">
+                        {{i.className}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                
+                  
+                {{selected}}             </div>
             <div class="d-flex justify-content-between">
             
             
@@ -163,10 +175,17 @@
     
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">City</label>
+                      <label for="exampleInputEmail1" class="form-label">password</label>
                   
-                      <input type="city" class="form-control" id="city"  formControlName="city"  type="text" name="city" aria-describedby="cityHelp" readonly>
-                      <!-- <p [ngStyle]="{color:'red'}" *ngIf=" f.city.errors?.['pattern'] && f.city?.touched"> enter valid email</p> -->
+                      <input type="password" class="form-control" id="password"  formControlName="password"  type="text" name="password" aria-describedby="passwordHelp" readonly>
+                      <!-- <p [ngStyle]="{color:'red'}" *ngIf=" f.password.errors?.['pattern'] && f.password?.touched"> enter valid email</p> -->
+    
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Course</label>
+                  
+                      <input type="Course" class="form-control" id="Course" [value]="course"  type="text" name="Course" aria-describedby="passwordHelp" readonly>
+                      <!-- <p [ngStyle]="{color:'red'}" *ngIf=" f.password.errors?.['pattern'] && f.password?.touched"> enter valid email</p> -->
     
                     </div>
                     <div class="mb-3">
@@ -206,12 +225,22 @@
   
                   </div>
                   <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">City</label>
+                    <label for="exampleInputEmail1" class="form-label">password</label>
                 
-                    <input type="city" class="form-control" id="city"  formControlName="city"  type="text" name="city" aria-describedby="cityHelp">
-                    <p [ngStyle]="{color:'red'}" *ngIf=" f.city.errors?.['pattern'] && f.city?.touched"> enter valid email</p>
+                    <input type="password" class="form-control" id="password"  formControlName="password"  type="text" name="password" aria-describedby="passwordHelp">
+                    <p [ngStyle]="{color:'red'}" *ngIf=" f.password.errors?.['pattern'] && f.password?.touched"> enter valid email</p>
   
                   </div>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Class</mat-label>
+                    <mat-select [(ngModel)]="SelectedCourse" name="food"  [ngModelOptions]="{standalone: true}">
+
+                      <mat-option *ngFor="let i of coursers" [value]="i.className">
+                        {{i.className}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+  <!-- <p> Selected food: {{SelectedCourse}} </p> -->
                   <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label"> address</label>
                   <textarea  class="form-control" id="address"  formControlName="address"  type="text" name="address" aria-describedby="addressHelp" name="" id="" cols="5" rows="5"></textarea>

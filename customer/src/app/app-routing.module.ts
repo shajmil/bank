@@ -9,7 +9,7 @@ import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
 {
-path:'',component:LoginComponent
+path:'admin',component:LoginComponent
 },{
   path:'registration',component:RegistrationComponent
 },
@@ -23,6 +23,7 @@ path:'',component:LoginComponent
 {
   path:'about',component:AboutComponent
 },
+{ path: 'teachers', loadChildren: () => import('./teachers/teachers.module').then(m => m.TeachersModule) },
 ];
 
 @NgModule({

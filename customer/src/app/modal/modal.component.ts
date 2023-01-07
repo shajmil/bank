@@ -2,8 +2,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { DatabaseService } from '../services/database.service';
 
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +15,7 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 })
 export class ModalComponent implements OnInit {
 
-  constructor(public modalRef: MdbModalRef<ModalComponent>,private fb:FormBuilder) {}
+  constructor(public modalRef: MdbModalRef<ModalComponent>,private fb:FormBuilder,private ds:DatabaseService ,private route:Router,) {}
 
   ngOnInit(): void {
   }
@@ -32,6 +35,32 @@ export class ModalComponent implements OnInit {
     this.modalRef.close(closeMessage)
   }
 add(){
+  var fees =this.formGroup.value.fees
+  var className =this.formGroup.value.className
+  var description =this.formGroup.value.description
 
+  if(this.formGroup.valid){
+this.ds.addClass(fees,className,description).subscribe((result: any)=>{
+  console.log('result: ', result);
+
+  Swal.fire(
+    'Good job!',
+    'You have successfully registered!',
+    'success'
+  ).then(() => {
+    this.formGroup.reset()
+    
+    this.close(); 
+    this.ngOnInit()
+    window.location.reload();
+   })
+},result=>{
+   Swal.fire({
+      icon: 'error',
+      title: 'class already exist',
+     
+    })
+
+})}
 }
 }

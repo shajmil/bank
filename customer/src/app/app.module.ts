@@ -6,8 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
-
-
+import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import{MatIconModule}  from '@angular/material/icon';
@@ -61,7 +60,7 @@ import { ModalComponent } from './modal/modal.component';
   imports: [MatIconModule,
     MatSidenavModule,
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule,MatSelectModule,
     FormsModule,
     MDBBootstrapModule,
     MdbAccordionModule,

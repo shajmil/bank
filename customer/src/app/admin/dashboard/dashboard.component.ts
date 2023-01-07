@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
 email:any
   reason = '';
   imageurl:any;
+  @ViewChild('myInput')myInputVariable:any= ElementRef 
    @ViewChild('filertext')filtertext:any
   @Input() item:any
   selecetedFile:any
@@ -32,14 +33,18 @@ email:any
   id: any;
   gender: any;
   temp:any
+  course: any;
   close(reason: string) {
     this.reason = reason;
     this.sidenav.close();
   }
   type:any='male';
   users:any
+  coursers:any
   totalRecords:any;
   page:any=1
+  SelectedCourse:any
+  selected:any='not asigned'
 
   filter:any
   showFiller = false;
@@ -52,8 +57,6 @@ email:any
   constructor(private modalService: MdbModalService,private sanitizer: DomSanitizer,private ds:DatabaseService,private fs:FormBuilder ,private route:Router,private fb:FormBuilder) {
   
  
-
-   
 
 
 
@@ -75,12 +78,31 @@ openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
     firstname:['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],
     gender:[''],
     address:[''],
-    city:[''],
+    password:['',[Validators.required]],
    
        })
     get f(){ return this.formGroup.controls;}
 
   ngOnInit(): void {
+    this.selected='not assaigned'
+    this.ds.getcourse().subscribe((result:any)=>{
+     
+      this.coursers= result.message
+      console.log('this.coursers: ', this.coursers);
+  
+  
+  
+  
+  
+        // // console.log('TYPED_ARRAY: ', TYPED_ARRAY);
+        // // console.log('STRING_CHAR: ', STRING_CHAR);
+        // console.log('base64String: ', base64String);
+        // console.log('imageurl: ', this.imageurl);
+  
+  
+        // console.log('this.users: ', this.users);
+      
+      })
     this.img=(data:any)=>{
       
       let TYPED_ARRAY =  new Uint8Array(data);
@@ -121,10 +143,12 @@ openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
       // console.log('this.users: ', this.users);
     
     })
+
     // this.ngOnInit() 
   }
 
 view(t:any){
+  
   console.log(t);
   this.viewStatus=true;
   this.newStatus=false;
@@ -139,7 +163,8 @@ view(t:any){
     let lastname=document.getElementById('lastname')?.innerHTML==""?t.lastname:' '
     let firstname=document.getElementById('lastname')?.innerHTML==""?t.firstname:' '
     let address=document.getElementById('lastname')?.innerHTML==""?t.address:' '
-    let city=document.getElementById('city')?.innerHTML==""?t.city:' '
+    let password=document.getElementById('password')?.innerHTML==""?t.password:' '
+    this.course =t?.course
     // let email=document.getElementById('email')?.innerHTML==""?t.email:' '
     // console.log('email: ', ema);
     this.formGroup.get('email')?.setValue(email);
@@ -148,7 +173,7 @@ view(t:any){
      this.type=t.gender
     this.formGroup.get('gender')?.setValue(this.type);
     
-    this.formGroup.get('city')?.setValue(city);
+    this.formGroup.get('password')?.setValue(password);
     this.formGroup.get('address')?.setValue(address);
   }
 
@@ -159,6 +184,7 @@ this.firstname=t.firstname
 this.lastname=t.lastname
 this.viewStatus=false
 this.uptdStatus=true
+this.SelectedCourse=t?.course
   this.newStatus=false
   this.index = this.users.findIndex((a: { firstname: any; }) => a.firstname === this.firstname)
  this.id=t._id
@@ -166,7 +192,7 @@ this.uptdStatus=true
   // let lastname=document.getElementById('lastname')?.innerHTML==""?t.lastname:t.lastname
   // let firstname=document.getElementById('lastname')?.innerHTML==""?t.firstname:t.firstname
   // let address=document.getElementById('lastname')?.innerHTML==""?t.address:t.address
-  // let city=document.getElementById('city')?.innerHTML==""?t.city:t.city
+  // let password=document.getElementById('password')?.innerHTML==""?t.password:t.password
   // let email=document.getElementById('email')?.innerHTML==""?t.email:' '
   // console.log('email: ', ema);
   this.formGroup.get('email')?.setValue(t.email);
@@ -175,12 +201,12 @@ this.uptdStatus=true
    this.type=t.gender
   this.formGroup.get('gender')?.setValue(this.type);
   
-  this.formGroup.get('city')?.setValue(t.city);
+  this.formGroup.get('password')?.setValue(t.password);
   this.formGroup.get('address')?.setValue(t.address);
 }
 update(){
   var email =this.formGroup.value.email
-  var city =this.formGroup.value.city
+  var password =this.formGroup.value.password
   var firstname =this.formGroup.value.firstname
   var lastname =this.formGroup.value.lastname
   var address =this.formGroup.value.address
@@ -189,7 +215,7 @@ update(){
 //  console.log('id: ', id);
  var gender=this.type
  if(this.formGroup.valid){
-  var result=this.ds.update(id,email,city,firstname,lastname,address,gender).subscribe((result)=>{
+  var result=this.ds.update(id,email,password,firstname,lastname,address,gender,this.SelectedCourse).subscribe((result)=>{
     console.log('result: ', result);
   
     Swal.fire(
@@ -230,8 +256,11 @@ onChange(e:any) {
 }
 
 new(){
+  this.ngOnInit();
 this.uptdStatus=false
   this.newStatus=true
+  this.myInputVariable.nativeElement.value = "";
+
   this.viewStatus=false
   this.formGroup.get('email')?.setValue('');
   this.formGroup.get('lastname')?.setValue('');
@@ -239,20 +268,20 @@ this.uptdStatus=false
   this.formGroup.get('address')?.setValue('');
 
   this.formGroup.get('gender')?.setValue('');
-  this.formGroup.get('city')?.setValue('');
+  this.formGroup.get('password')?.setValue('');
 }
 
 
 add(){
 
   var email =this.formGroup.value.email
-  var city =this.formGroup.value.city
+  var password =this.formGroup.value.password
   var firstname =this.formGroup.value.firstname
   var lastname =this.formGroup.value.lastname
   var address =this.formGroup.value.address
   var gender =this.type
   if(this.formGroup.valid){
-this.ds.add(email,city,firstname,lastname,address,gender,this.selecetedFile).subscribe((result)=>{
+this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.selected).subscribe((result)=>{
   console.log('result: ', result);
 
   Swal.fire(
@@ -280,6 +309,7 @@ card(){
   this.newStatus=false
 }
 list(){
+  this.ngOnInit();
   this.cardStatus=false;
   this.listStatus=true;
   this.newStatus=false
