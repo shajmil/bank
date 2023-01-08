@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { DatabaseService } from '../../services/database.service';
 
-import { ModalComponent } from 'src/app/modal/modal.component';
+import { AddStudentComponent } from '../add-student/add-student.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 @Component({
@@ -22,7 +22,7 @@ export class TeacherDashboardComponent implements OnInit {
 
 
 
-  modalRef: MdbModalRef<ModalComponent> | null = null;
+  modalRef: MdbModalRef<AddStudentComponent> | null = null;
   @ViewChild('sidenav')sidenav!: MatSidenav;
   images:any=[]
 email:any
@@ -55,8 +55,8 @@ email:any
   showFiller = false;
   uptdStatus:any=false
   newStatus:any=true;
-  viewStatus:any=false
- cardStatus:any=true;
+  viewStatus:any=true
+
  img:any
  listStatus:any=false;
   constructor(private modalService: MdbModalService,private sanitizer: DomSanitizer,private ds:DatabaseService,private fb:FormBuilder) {
@@ -66,7 +66,7 @@ email:any
 
 
 }
-openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
+openModal() {   this.modalRef = this.modalService.open(AddStudentComponent, {
 })
 }
 
@@ -283,15 +283,11 @@ this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,
   
 }
 
-card(){
-  this.cardStatus=true;
-  this.listStatus=false
-  this.newStatus=false
-}
+
 list(){
   this.ngOnInit();
-  this.cardStatus=false;
   this.listStatus=true;
+  console.log('  this.listStatus: ',   this.listStatus);
   this.newStatus=false
 }
 search(){

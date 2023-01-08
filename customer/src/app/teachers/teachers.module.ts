@@ -29,13 +29,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { TeacherDashboardComponent } from './teacher-dashboard/teacher-dashboard.component';
 import { CommonModule } from '@angular/common';
 import { TeachernavComponent } from './teachernav/teachernav.component';
+import { AddStudentComponent } from './add-student/add-student.component';
+import { StudentListComponent } from './student-list/student-list.component';
 
 @NgModule({
   declarations: [
     TeachersComponent,
     LoginComponent,
     TeacherDashboardComponent,
-    TeachernavComponent
+    TeachernavComponent,
+    AddStudentComponent,
+    StudentListComponent
   ],
   imports: [
     TeachersRoutingModule,FormsModule,ReactiveFormsModule, MatSlideToggleModule,
@@ -43,7 +47,6 @@ import { TeachernavComponent } from './teachernav/teachernav.component';
     NgxPaginationModule,MatIconModule,
       MatSidenavModule,
       CommonModule,
-  MatSelectModule,
  MatSelectModule,
       FormsModule,
       MDBBootstrapModule,

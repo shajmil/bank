@@ -14,61 +14,19 @@
     
             <div class="d-sm-flex justify-content-between">
     <div class="d-flex gap-5">
-        <a (click)="card()"> Teacher View</a>
+    
         <a (click)="list()"> Class View</a>
-        <a (click)="new()"  mat-button (click)="sidenav.open()" > New Teacher</a>
-        <a (click)="openModal() " > New Class</a>
+       
+        <a (click)="openModal() " > New Student</a>
     </div>
-    <div>
-        <label for="search bg-text" *ngIf="!listStatus" >filter</label>
-        <input class="form-control" type="text" #filertext *ngIf="!listStatus"  name="" [(ngModel)]="filter " (keydown)="key($event)" (ngModelChange)="search()">
-   
-    </div>
+ 
     
     
     
             </div>
     
-    
-    <div class="container-fluid "*ngIf="cardStatus">
-    
-        <div class="row mt-5 ">
-            <div class="col-md-6 col-lg-4 d-flex justify-content-center" *ngFor="let i of users |paginate: { id: 'card',
-            itemsPerPage:9,
-            currentPage: page,
-            totalItems: totalRecords };let in = index">
-        <div class="card mt-3 "style="width: 23rem;">
-            <div class="card-header d-flex justify-content-between">
-                {{i.firstname}}  {{i.lastname}} {{in}}
-                <button class="btn btn-dark" mat-button (click)="sidenav.open()" (click)="uptd(i)">
-    
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="card-body d-flex justify-content-around" >
-                <div>
-                  <img [src]="images[in]" class="rounded rounded-circle  "  style="height: 72px;width: 72px;" alt="Image Source">
-                    <!-- <img src="../../assets/images/user_profile_male_icon_192702.png" class="   " style="height: 72px;width: 72px;" *ngIf="i.gender=='male'" alt="" srcset="">
-                    <img src="../../assets/images/user_profile_female_icon_192701(1).png" class="  "style="height: 72px;width: 72px;"  *ngIf="i.gender=='female'" alt="" srcset=""> -->
-                </div>
-                <div>
-    
-                    <h2 class="card-title">{{i.course}}</h2>
-                    <p class="card-text">{{i.address}}</p>
-                    <a class="border-bottom border-4 text-dark  " (click)="view(i)  "  (click)="sidenav.open()">view more</a>
-                </div>
-            </div>
-    </div>
-        </div>  
-       </div>
-       <div  class="mt-5">
-
-         <pagination-controls id="card" (pageChange)="page=$event">
-           
-        </pagination-controls>
-      </div>
-    </div>
-    <app-listview [item]="coursers" [listStatus]="listStatus" [total]="totalRecords" ></app-listview>
+ 
+    <app-student-list [item]="coursers" [listStatus]="listStatus" [total]="totalRecords" ></app-student-list>
     </div>
     </div>
         
