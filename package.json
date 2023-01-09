@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "angular-credit-cards": "^3.1.9",
-    "payment": "^2.4.6"
-  }
-}
