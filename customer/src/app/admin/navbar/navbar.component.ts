@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
 @Output() data=new EventEmitter()
-  constructor( private route:Router) { }
+  constructor( private route:Router, private r:ActivatedRoute) { }
 acno:any
   ngOnInit(): void {
   }
@@ -31,7 +31,7 @@ acno:any
         )
         localStorage.removeItem('currentUser')
         localStorage.removeItem('currentacno')
-        this.route.navigateByUrl('')
+        this.route.navigate(['/admin'],{ relativeTo: this.r });
       }
     })
 

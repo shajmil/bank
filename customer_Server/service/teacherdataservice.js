@@ -1,39 +1,25 @@
 const db =require('./db')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
-const login =async (acno,pswd) =>{
-  const user = await db.user.findOne({ email:acno })
-
-  if(user){
-  // console.log('user: ', user);
-  // console.log(pswd,acno);
 
 
-    return db.user.findOne({email:acno ,password:pswd}).then( user =>{
-      
-      
-      // console.log('pswd: ', pswd);
-      // console.log(acno)
-      // console.log(userDetails)
-      
+  const login =async (acno,pswd) =>{
+    const user = await db.user.findOne({ email:acno })
+
       if(user){
-        // console.log('user: ',);
-        
-        // console.log(acno);
-        // // console.log(acno)
-        // if(pswd==userDetails[acno]['password'])
-        //  currentUser=userDetails[acno]['username']
-        //  currentAcno=userDetails[acno].acno
-        // key=require('crypto').randomBytes(32).toString('hex')
-        // const token = jwt.sign(acno,key)
-        const token = jwt.sign(acno,'shajmil2022')
-         return {
-         currentuser: user.email,
+      return db.user.findOne({email:acno ,password:pswd}).then( user =>{
+
+        if(user){
+          const token = jwt.sign(acno,'shajmil2022')
+          
+          return {
+          currentuser: user.email,
           statuscode:200,
           status: 'success',
           message:' account login sucess',
           acno,
-        token
+          course:user.course,
+          token
         }
          
         
@@ -59,7 +45,75 @@ const login =async (acno,pswd) =>{
             
           }
         }
+         const showstudent=(teacher)=>{
+          console.log('teacher: ', teacher);
+          return db.student.find({ "teacher": teacher } ).then(users=>{
+              // console.log('users: ', users);
+              if(users){
+  
+           
+              return {
+                  statuscode:200,
+                  status: 'success',
+                  message:users
+                }
+              }
+  
+      })}
+      const add = (firstname,lastname,email,password,address,gender,final_img,course,teacher,fees)=>{
+        console.log('teacher: ', teacher);
+        // console.log('final_img: ', final_img);
+        //   console.log('gender: ', gender);
+        //   console.log('address: ', address);
+        //   console.log('password: ', password);
+        //   console.log('email: ', email);
+        //   console.log('lastname: ', lastname);
+        //   console.log('firstname: ', firstname);
+          return db.student.findOne({email}).then(users=>{
+        
+         
+            if(users){
+              console.log('users: ', users);
+              // alert('already exist')
+              return {
+                statuscode:401,
+                status: 'fail',
+                message:' Customer already exist'
+              }
+            }else{
+             const newUser= new db.student( {
+                 firstname,
+                 lastname,
+                 email,
+                 password,address,gender,img:final_img,course,teacher,fees
+                 
+              }, )  
+               newUser.save()
+              return {
+                statuscode:200,
+                status: 'success',
+                message:' Customer created'
+              }
+            }
+          
+          }
+          ) }
+
+          const deletestudent=(student)=>{
+     
+    
+            return db.student.deleteOne({ email:student}).then(users=>{
+              
+                // console.log('users: ', users);
+                return {
+                    statuscode:200,
+                    status: 'success',
+                    message:users
+                  }
+        }
+        )
+      }
 
         module.exports = {
-            login
+            add,login,showstudent,deletestudent
             }

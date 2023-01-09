@@ -16,6 +16,15 @@ const user = mongoose.model('teachers',{
     gender:String,
     img:{data:Buffer,contentType: String},course:String
 },'teachers' )
+const student = mongoose.model('students',{
+    firstname:String,
+    lastname:String,
+    email:String,
+    password:String,
+    address:String,
+    gender:String,
+    img:{data:Buffer,contentType: String},course:String,teacher:String,fees:Number
+},'students' )
 const classes = mongoose.model('class',{
     fees:String,
     className:String,
@@ -31,5 +40,5 @@ const admin = mongoose.model('admin',{
 
 
 module.exports ={
-    user,admin,classes
+    user,admin,classes,student
 }

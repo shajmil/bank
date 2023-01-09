@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './admin/login/login.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import {MatSelectModule} from '@angular/material/select';
@@ -26,17 +26,17 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './admin/navbar/navbar.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 
 import { AboutComponent } from './admin/about/about.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DemoComponent } from './admin/about/demo/demo.component';
 import { ProductsComponent } from './admin/about/products/products.component';
-import { ListviewComponent } from './listview/listview.component';
+import { ListviewComponent } from './admin/listview/listview.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RegistrationComponent } from './registration/registration.component';
-import { ModalComponent } from './modal/modal.component';
+import { RegistrationComponent } from './admin/registration/registration.component';
+import { ModalComponent } from './admin/modal/modal.component';
 
 
 @NgModule({

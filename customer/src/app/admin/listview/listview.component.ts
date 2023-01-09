@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { DatabaseService } from '../services/database.service';
+import { DatabaseService } from '../../services/database.service';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 import Swal from 'sweetalert2';

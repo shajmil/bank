@@ -16,6 +16,7 @@ const login =async (acno,pswd) =>{
       // console.log(userDetails)
       
       if(user){
+        
         // console.log('user: ',);
         
         // console.log(acno);
@@ -26,6 +27,7 @@ const login =async (acno,pswd) =>{
         // key=require('crypto').randomBytes(32).toString('hex')
         // const token = jwt.sign(acno,key)
         const token = jwt.sign(acno,'shajmil2022')
+
          return {
          currentuser: user.username,
           statuscode:200,

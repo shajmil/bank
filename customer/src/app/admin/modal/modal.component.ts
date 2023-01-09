@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
-import { DatabaseService } from '../services/database.service';
+import { DatabaseService } from '../../services/database.service';
 
 import Swal from 'sweetalert2';
 

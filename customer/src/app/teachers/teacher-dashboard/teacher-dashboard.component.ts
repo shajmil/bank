@@ -5,8 +5,8 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
-import { DatabaseService } from '../../services/database.service';
-
+import { DatabaseServiceService } from '../database-service.service';
+import { StudentListComponent } from '../student-list/student-list.component';
 import { AddStudentComponent } from '../add-student/add-student.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
@@ -28,6 +28,7 @@ export class TeacherDashboardComponent implements OnInit {
 email:any
   reason = '';
   imageurl:any;
+  @ViewChild('studentlist') componentB:any=StudentListComponent
   @ViewChild('myInput')myInputVariable:any= ElementRef 
    @ViewChild('filertext')filtertext:any
   @Input() item:any
@@ -39,6 +40,8 @@ email:any
   gender: any;
   temp:any
   course: any;
+  students: any;
+  self:any
   close(reason: string) {
     this.reason = reason;
     this.sidenav.close();
@@ -55,11 +58,13 @@ email:any
   showFiller = false;
   uptdStatus:any=false
   newStatus:any=true;
-  viewStatus:any=true
-
+  viewStatus:any=false
+  start:any=true
  img:any
+ class:any
+ teachermail:any
  listStatus:any=false;
-  constructor(private modalService: MdbModalService,private sanitizer: DomSanitizer,private ds:DatabaseService,private fb:FormBuilder) {
+  constructor(private modalService: MdbModalService,private sanitizer: DomSanitizer,private ds:DatabaseServiceService,private fb:FormBuilder) {
   
  
 
@@ -90,61 +95,9 @@ openModal() {   this.modalRef = this.modalService.open(AddStudentComponent, {
 
   ngOnInit(): void {
     this.selected='not assaigned'
-    this.ds.getcourse().subscribe((result:any)=>{
-     
-      this.coursers= result.message
-      console.log('this.coursers: ', this.coursers);
-  
-  
-  
-  
-  
-        // // console.log('TYPED_ARRAY: ', TYPED_ARRAY);
-        // // console.log('STRING_CHAR: ', STRING_CHAR);
-        // console.log('base64String: ', base64String);
-        // console.log('imageurl: ', this.imageurl);
-  
-  
-        // console.log('this.users: ', this.users);
-      
-      })
-    this.img=(data:any)=>{
-      
-      let TYPED_ARRAY =  new Uint8Array(data);
-            
-      var STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-        return data + String.fromCharCode(byte);
-      }, '');
-      let base64String = btoa(STRING_CHAR);
-      this.imageurl =  this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${base64String}`);
-    
-    this.images.push(this.imageurl)
-       
-      };
-    this.ds.getusers().subscribe((result:any)=>{
-      // console.log('result: ',);
- this.images=[]
- console.log('result.message: ', result.message);
+    this.self=localStorage.getItem('currentUser')
+    this.class=localStorage.getItem('course')
 
-
-    // console.log('this.images: ', this.images);
-    this.users= result.message
-
-
-
-
-
-      // // console.log('TYPED_ARRAY: ', TYPED_ARRAY);
-      // // console.log('STRING_CHAR: ', STRING_CHAR);
-      // console.log('base64String: ', base64String);
-      // console.log('imageurl: ', this.imageurl);
-
-
-      // console.log('this.users: ', this.users);
-    
-    })
-
-    // this.ngOnInit() 
   }
 
 view(t:any){
@@ -236,6 +189,7 @@ onChange(e:any) {
 }
 
 new(){
+ 
   this.ngOnInit();
 this.uptdStatus=false
   this.newStatus=true
@@ -252,41 +206,12 @@ this.uptdStatus=false
 }
 
 
-add(){
-
-  var email =this.formGroup.value.email
-  var password =this.formGroup.value.password
-  var firstname =this.formGroup.value.firstname
-  var lastname =this.formGroup.value.lastname
-  var address =this.formGroup.value.address
-  var gender =this.type
-  if(this.formGroup.valid){
-this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.selected).subscribe((result)=>{
-  console.log('result: ', result);
-
-  Swal.fire(
-    'Good job!',
-    'You have successfully registered!',
-    'success'
-  ).then(() => {
-    this.filter=""
-    this.ngOnInit() 
-   })
-},()=>{
-   Swal.fire({
-      icon: 'error',
-      title: 'Please fill form ',
-     
-    })
-})}
-   
-  
-}
-
 
 list(){
+  this.componentB.ngOnInit();
   this.ngOnInit();
   this.listStatus=true;
+  this.start=false
   console.log('  this.listStatus: ',   this.listStatus);
   this.newStatus=false
 }
@@ -307,18 +232,18 @@ console.log('this.users: ', this.users);
 }
 key(event:any){
 
- if(event.key=='Backspace'){
+//  if(event.key=='Backspace'){
   
-  // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
-  this.ds.getusers().subscribe((result:any)=>{
-    // console.log('result: ',);
-    this.users= result.message
-  this.users=this.users.filter((re: any) =>{
-  return re.firstname.toLocaleLowerCase().match(this.filter.toLocaleLowerCase())
-})
-  })
+//   // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
+//   this.ds.getusers().subscribe((result:any)=>{
+//     // console.log('result: ',);
+//     this.users= result.message
+//   this.users=this.users.filter((re: any) =>{
+//   return re.firstname.toLocaleLowerCase().match(this.filter.toLocaleLowerCase())
+// })
+//   })
 
-}
+// }
 // console.log('this.users: ', this.users);
  
 

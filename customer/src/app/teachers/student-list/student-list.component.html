@@ -1,5 +1,5 @@
 <div class="container mt-5 "*ngIf="listStatus">
-    <input class="form-control" type="text" #filertext  name="" [(ngModel)]="filter " (ngModelChange)="search()">
+    <input class="form-control" type="text" #filertext  name="" [(ngModel)]="filter "  (keydown)="key($event)" (ngModelChange)="search()">
 
 <table class="table table-hover">
 <thead>
@@ -8,34 +8,39 @@
 
 </th>
 <th>
-Coursename
+Name
 </th>
 <th>
-fees
+Phone Number
 </th>
 <th>
-Description
+Email
 </th>
 <th>
-
+Fees
 </th>
-
+<th>
+Address
+</th>
 <th>
 Action
 </th>
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let i of coursers |paginate: { id: 'foo',
+<tr *ngFor="let i of students |paginate: { id: 'foo',
 itemsPerPage:7,
 currentPage: page,
-totalItems: total }">
-<td> <img src="../../assets/images/user_profile_male_icon_192702.png" class="  img-responsive  " *ngIf="i.gender=='male'" alt="" style="height: 52px;width:52px; " srcset="">
-<img src="../../assets/images/user_profile_female_icon_192701(1).png" class= " img-responsive  " *ngIf="i.gender=='female'"  style="height: 52px;width:52px; " alt="" srcset="">
+totalItems: total };let in = index">
+<td>                   <img [src]="images[in]" class="rounded rounded-circle  "  style="height: 72px;width: 72px;" alt="Image Source">
 </td>
-<td>{{i.className}}</td>
+<td>{{i.firstname}}</td>
+<td>{{i.lastname}}</td>
+<td>{{i.email}}</td>
 <td>{{i.fees}}</td>
-<td>{{i.description}}</td>
+<td>{{i.address}}</td>
+<td>  <button type="submit" class="btn btn-danger "   (click)="delete(i.email)">Delete</button>
+</td>
 
 
 <td></td>

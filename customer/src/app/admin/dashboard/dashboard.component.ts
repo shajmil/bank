@@ -8,7 +8,7 @@ import { async } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DatabaseService } from '../../services/database.service';
 
-import { ModalComponent } from 'src/app/modal/modal.component';
+import { ModalComponent } from '../modal/modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { By } from '@angular/platform-browser';
 @Component({

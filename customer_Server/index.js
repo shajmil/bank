@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const ds =require('./service/dataservice')
+const sds =require('./service/studentservice')
 const tds =require('./service/teacherdataservice')
 const db =require('./service/db')
 const cors = require('cors')
@@ -111,15 +112,56 @@ app.use(cors({
 //teacher 
 
 
-app.post('/Teacherlogin',async (req,res)=>{
-    try {
+      app.post('/Teacherlogin',async (req,res)=>{
+      try {
 
         tds.login(req.body.acno,req.body.pswd).then(result=>{
             // res.json(result)
             
             res.status(result.statuscode).json(result)})
-      } catch (error) {
+          } catch (error) {
         // console.log(error);
         res.status(500).send("Internal Server error Occured");
-      }
-    })   
+          }
+        })   
+    
+    app.post('/showstudent',(req,res)=>{
+      
+      console.log('req.body: ', req.body);
+      tds.showstudent(req.body.teacher)
+      .then(result=>{ res.status(result.statuscode).json(result)  })  })
+
+      app.post('/addstudent',upload.single('file'),(req,res)=>{
+        console.log('  req.body: ',   req.body);    
+        var img = fs.readFileSync(req.file.path);
+         var encode_img = img.toString('base64');
+        var final_img = {
+            data:new Buffer.from(encode_img,'base64'),
+            contentType:req.file.mimetype,
+        };
+        tds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course,req.body.teacher,req.body.fees)
+        .then(result=>{
+         res.status(result.statuscode).json(result)})  })
+ 
+         app.delete('/deletestudent/:student',(req,res)=>{
+          tds.deletestudent(req.params.student ).then(result =>{
+              res.status(result.statuscode).json(result) })})
+//student
+
+
+
+app.post('/studentlogin',(req,res)=>{
+
+  sds.login(req.body.acno,req.body.pswd).then(result=>{
+  // res.json(result)
+  
+  res.status(result.statuscode).json(result)})
+  // if(result){
+  //     res.send('success')
+  
+  // }
+  // else{
+  //     req.send('fail')
+  // }
+  })
+         

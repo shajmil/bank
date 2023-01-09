@@ -7,7 +7,7 @@
 
        
         <div>
-            <h3 class="text-dark fs-5 ps-3">   <i class="fa fa-user " aria-hidden="true"></i> ADMIN</h3>
+            <h3 class="text-dark fs-5 ps-3">   <i class="fa fa-user " aria-hidden="true"></i> Teacher</h3>
 
             
             <div class="container-fluid  mt-5">
@@ -24,91 +24,58 @@
     
     
             </div>
-    
+  
  
-    <app-student-list [item]="coursers" [listStatus]="listStatus" [total]="totalRecords" ></app-student-list>
+    <app-student-list [item]="students"   #studentlist [listStatus]="listStatus" [total]="totalRecords" ></app-student-list>
     </div>
     </div>
-        
+    <div class="vh-100" *ngIf="start">
+      <div class="container">
+        <div class="container__item landing-page-container">
+            <div class="content__wrapper">
+
+                <header class="header">
+                  
+
+                    <h1 class="heading header__item"> {{self}} </h1>
+
+             
+                </header>
+
+                <p class="coords">N 49° 16' 35.173"  /  W 0° 42' 11.30"</p>
+
+                <div class="ellipses-container">
+
+                    <h2 class="greeting">{{class}}</h2>
+
+                    <div class="ellipses ellipses__outer--thin">
+
+                        <div class="ellipses ellipses__orbit"></div>
+
+                    </div>
+
+                    <div class="ellipses ellipses__outer--thick"></div>
+                </div>
+
+                <div class="scroller">
+                    <p class="page-title">home</p>
+
+                    <div class="timeline">
+                        <span class="timeline__unit"></span>
+                        <span class="timeline__unit timeline__unit--active"></span>
+                        <span class="timeline__unit"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
     <mat-sidenav class="h-100 size1 bg-light"  position="end" #sidenav (keydown.escape)="close('escape')" disableClose>
         
-        <form class="p-3"  [formGroup]="formGroup" *ngIf="newStatus"> 
-                  <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">firstname <span class="text-dark"> *</span></label>
-                   
-                    <input type="text" class="form-control" id="firstname" formControlName="firstname"  type="text" name="firstname" >
-                    <p [ngStyle]="{color:'red'}" *ngIf=" f.firstname.errors?.['required'] && f.firstname?.touched"> this field must not be empty</p>
-              
-                  </div>
-                  <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">lastname   <span class="text-dark"> *</span></label>
-                      
-                      <input type="text" class="form-control" id="lastname" formControlName="lastname"  type="text" name="lastname" >
-                      <p [ngStyle]="{color:'red'}" *ngIf=" f.lastname.errors?.['required'] && f.lastname?.touched"> this field must not be empty</p>
-                      
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address  <span class="text-dark"> *</span></label>
-                  
-                      <input type="email" class="form-control" id="email"  formControlName="email"  type="text" name="email" aria-describedby="emailHelp">
-                      <p [ngStyle]="{color:'red'}" *ngIf=" f.email.errors?.['pattern'] && f.email?.touched"> enter valid email</p>
-    
-                    </div> <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">password <span class="text-dark"> *</span></label>
-                  
-                      <input type="password" class="form-control" id="password"  formControlName="password"  type="text" name="password" aria-describedby="passwordHelp">
-                      <p [ngStyle]="{color:'red'}" *ngIf=" f.password.errors?.['pattern'] && f.password?.touched"> enter valid email</p>
-    
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label"> address</label>
-                    <textarea  class="form-control" id="address"  formControlName="address"  type="text" name="address" aria-describedby="addressHelp" name="" id="" cols="5" rows="5"></textarea>
-                  
-      
-                      </div>   
-                    <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">gender</label>
-                  <input
-                  type="radio"
-                  id="male"
-                  name="sample"
-                  value="male"
-                  (change)="onChange($event)"
-                  checked /> 
-                  <label for="a">Male</label> 
-                  
-                  <input
-                  type="radio"
-                  id="female"
-                  name="sample"
-                  value="female"
-                  (change)="onChange($event)" />
-                  <label for="b">female</label>
-               
-                </div>
-                <div class="mb-3">
-                  <input type="file" #myInput name="image" id="image" (change)="image($event)" accept="image/*" >
-                </div>
-                <div class="mb-3">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Class</mat-label>
-                    <mat-select [(ngModel)]="selected" name="food"  [ngModelOptions]="{standalone: true}">
-                      <mat-option *ngFor="let i of coursers" [value]="i.className">
-                        {{i.className}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                
-                  
-                {{selected}}             </div>
-            <div class="d-flex justify-content-between">
-            
-            
-              <button type="submit" class="btn btn-success"  (click)="close('toggle button')" (click)="add()">Submit</button>
-              <button type="submit" class="btn btn-dark "  (click)="close('toggle button')">Close</button>
-
-            </div>
-              </form>
+       
         <form class="p-3"  [formGroup]="formGroup" *ngIf="viewStatus">
           
                   <div class="mb-3">

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-teachernav',
@@ -13,7 +13,7 @@ export class TeachernavComponent implements OnInit {
 
 
 @Output() data=new EventEmitter()
-  constructor( private route:Router) { }
+  constructor( private route:Router,  private r:ActivatedRoute) { }
 acno:any
   ngOnInit(): void {
   }
@@ -33,9 +33,10 @@ acno:any
           'You have been Successfully Logout',
           'success'
         )
-        localStorage.removeItem('currentUser')
-        localStorage.removeItem('currentacno')
-        this.route.navigateByUrl('')
+        localStorage.clear();
+
+       
+        this.route.navigate(['/teachers'],{ relativeTo: this.r });
       }
     })
 
