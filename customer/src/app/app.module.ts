@@ -37,7 +37,7 @@ import { ListviewComponent } from './admin/listview/listview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrationComponent } from './admin/registration/registration.component';
 import { ModalComponent } from './admin/modal/modal.component';
-
+import { NgCreditCardModule } from "angular-credit-card";
 
 @NgModule({
   declarations: [

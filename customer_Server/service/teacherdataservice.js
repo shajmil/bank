@@ -60,6 +60,7 @@ const jwt = require("jsonwebtoken");
               }
   
       })}
+     
       const add = (firstname,lastname,email,password,address,gender,final_img,course,teacher,fees)=>{
         console.log('teacher: ', teacher);
         // console.log('final_img: ', final_img);

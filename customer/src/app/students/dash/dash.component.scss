@@ -151,7 +151,9 @@ p{
   pointer-events: auto;
   opacity: 1;
   transition: all 300ms ease-in-out;
-}
+}.ticker{display: flex;flex-wrap: wrap;width: 100%;height: 10px;margin: 0 auto}.news{width: 80%;background: #cc4444;padding: 0 2%}.title{width: 20%;text-align: center;background: #c81c1c;position: relative}
+
+.title h5{font-size: 18px;margin: 4% 0}.news marquee{font-size: 18px;margin-top: 12px}.news-content p{margin-right: 41px;display: inline}
 .modal-wrap {
   position: relative;
   display: block;

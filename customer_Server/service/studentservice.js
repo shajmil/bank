@@ -53,9 +53,23 @@ const login =(acno,pswd) =>{
        
       })}
 
-      
+      const showstudent=(mail)=>{
+        console.log('mail: ', mail);
+        return db.student.find({ "email": mail } ).then(users=>{
+            // console.log('users: ', users);
+            if(users){
+
+         
+            return {
+                statuscode:200,
+                status: 'success',
+                message:users
+              }
+            }
+
+    })}
   module.exports = {
   
-    login,
+    login,showstudent
 
   }

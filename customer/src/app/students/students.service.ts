@@ -29,7 +29,13 @@ gettoken(){
   }
   return headerOptions
 }
-
+getstudent(mail:any){
+  // console.log('mail:any: ', mail);
+  const data={
+ mail   
+  }
+  return this.http.post('http://localhost:3000/getstudent',data) 
+ }
  login(acno:any,pswd:any){
   const data={
     acno,pswd    

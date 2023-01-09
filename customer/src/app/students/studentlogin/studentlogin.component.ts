@@ -79,7 +79,7 @@ get f(){ return this.formGroup.controls;}
 
      this.database.login(acno,pswd).subscribe((result:any)=>{
        console.log('result: ', result);
-       localStorage.setItem('currentUser',result.currentuser)
+       localStorage.setItem('currentUser',result.acno)
        localStorage.setItem('token',result.token)
        //  console.log(pswd);
        Swal.fire(

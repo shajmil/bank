@@ -165,3 +165,8 @@ app.post('/studentlogin',(req,res)=>{
   // }
   })
          
+    app.post('/getstudent',(req,res)=>{
+      
+      console.log('req.body: ', req.body);
+      sds.showstudent(req.body.mail)
+      .then(result=>{ res.status(result.statuscode).json(result)  })  })
