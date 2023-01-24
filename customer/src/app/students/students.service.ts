@@ -98,11 +98,11 @@ getstudent(mail:any){
 
 }
 
-withdraw(acno:any,pswd:any,amnt:any){
+withdraw(user:any,amnt:any){
   // this.gettoken()
   // console.log(options.header);
   const data={
-    acno,amnt,pswd,
+    user,amnt,
     
     // token:options.header.get('token')
   }
@@ -112,7 +112,7 @@ withdraw(acno:any,pswd:any,amnt:any){
   
  
  
-  return this.http.post('http://localhost:3000/withdraw',data,this.gettoken())
+  return this.http.post('http://localhost:3000/withdraw',data,)
 }
 
 

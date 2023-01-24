@@ -4,7 +4,7 @@
   import { Component, OnInit } from '@angular/core';
   import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-  import { Router } from '@angular/router';
+  import { ActivatedRoute, Router } from '@angular/router';
   import Swal from 'sweetalert2';
   import { StudentsService } from '../students.service';
   
@@ -24,6 +24,11 @@ import { DomSanitizer } from '@angular/platform-browser';
     images: any=[];
     fee:any
     teacher:any
+    name:any
+    number:any=''
+    cvc:any=''
+    expiry:any=''
+    cvdis:any
     user:any
   acno=""
   pswd=""
@@ -32,7 +37,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     Swal.fire('Thank you...', 'You submitted succesfully!', 'success')  
   }  
   
-      constructor(private sanitizer: DomSanitizer,private ds:StudentsService,private fs:FormBuilder ,private route:Router) {
+      constructor(private sanitizer: DomSanitizer,private ds:StudentsService,private fs:FormBuilder ,private route:Router,private r:ActivatedRoute) {
 
   this.current=localStorage.getItem('currentUser')
   
@@ -93,19 +98,42 @@ import { DomSanitizer } from '@angular/platform-browser';
     get f(){
       return this.form.controls
      }
+     logout(){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You need to Login again!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Logout'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Logout!',
+            'You have been Successfully Logout',
+            'success'
+          )
+          localStorage.clear();
+  
+         
+          this.route.navigate(['/'],{ relativeTo: this.r });
+        }
+      })
+  
+    }
     withdraw(){
    
-      let acno =this.form.value.acno
-      let pswd =this.form.value.pswd
-  let amnt =this.form.value.amnt
-  if(this.form.valid){
   
-    var result = this.ds.withdraw(acno,pswd,amnt).subscribe((result:any)=>{
+  
+      console.log('this.current: ', this.current);
+    var result = this.ds.withdraw(this.current,this.amnt).subscribe((result:any)=>{
   
       if(result){
         // console.log('result: ', result);
         alert(`${result.message}`)
         this.form.reset()
+        location.reload();
       }
     },result=>{
     
@@ -115,10 +143,18 @@ import { DomSanitizer } from '@angular/platform-browser';
     }
       
      ) 
-  }else{
-      console.log(this.form.errors);
-  }
+ 
     }
+
+    cvback(){
+      this.cvdis=false
+      console.log(' this.cvdis: ',  this.cvdis);
+    }
+    cvba()
+{
+  this.cvdis=true
+  console.log('this.cvdis: ', this.cvdis);
+}
     deposit(){
       let acno =this.form.value.acno
       // console.log('acno: ', acno);

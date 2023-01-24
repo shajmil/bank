@@ -6,6 +6,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LoginComponent } from './admin/login/login.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 import { RegistrationComponent } from './admin/registration/registration.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 import { DashComponent } from './students/dash/dash.component';
 import { StudentloginComponent } from './students/studentlogin/studentlogin.component';
 
@@ -33,8 +34,11 @@ path:'admin',component:LoginComponent
 {
   path:'about',component:AboutComponent
 },
+
 { path: 'teachers', loadChildren: () => import('./teachers/teachers.module').then(m => m.TeachersModule) },
-{ path: 'students', loadChildren: () => import('./students/students.module').then(m => m.StudentsModule) },
+{ path: 'students', loadChildren: () => import('./students/students.module').then(m => m.StudentsModule) },{
+  path:'**',component:NotfoundComponent
+},
 ];
 
 @NgModule({

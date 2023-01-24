@@ -81,6 +81,8 @@ get f(){ return this.formGroup.controls;}
        console.log('result: ', result);
        localStorage.setItem('currentUser',result.acno)
        localStorage.setItem('token',result.token)
+       localStorage.setItem('role','student')
+
        //  console.log(pswd);
        Swal.fire(
          'LogIn!',
@@ -97,7 +99,7 @@ get f(){ return this.formGroup.controls;}
          
        },result =>{
          alert(result.error.message)
-         this.route.navigateByUrl('login')
+         this.route.navigateByUrl('')
        })
        
    }

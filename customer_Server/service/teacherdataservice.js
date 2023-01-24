@@ -70,6 +70,8 @@ const jwt = require("jsonwebtoken");
         //   console.log('email: ', email);
         //   console.log('lastname: ', lastname);
         //   console.log('firstname: ', firstname);
+      
+       
           return db.student.findOne({email}).then(users=>{
         
          
@@ -79,9 +81,11 @@ const jwt = require("jsonwebtoken");
               return {
                 statuscode:401,
                 status: 'fail',
-                message:' Customer already exist'
+                message:' student already exist'
               }
             }else{
+              if(fees!="undefined"){
+                console.log('fees: ', fees);
              const newUser= new db.student( {
                  firstname,
                  lastname,
@@ -93,13 +97,26 @@ const jwt = require("jsonwebtoken");
               return {
                 statuscode:200,
                 status: 'success',
-                message:' Customer created'
-              }
+                message:' student created'
+              }}  else{
+                console.log('fees: ', fees.length);
+            
+     
+           
+                return {
+                      statuscode:401,
+                       status: 'failure',
+                       message:' Class has been Removed by admin'
+                    }   }
             }
           
           }
-          ) }
+          )
+       
 
+        
+        }
+        
           const deletestudent=(student)=>{
      
     

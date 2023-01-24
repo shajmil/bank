@@ -9,6 +9,23 @@ const fs = require("fs")
 const multer = require("multer")
 app.use(express.json())
 const bcrypt = require("bcryptjs")
+const verify=(req,res,next)=>{
+  try{
+  let token=req.headers['token']
+  // key=require('crypto').randomBytes(32).toString('hex')
+data = jwt.verify(token,'shajmil2022')
+// console.log()
+console.log(data);
+next();
+  }
+  catch{
+      res.status(401).json({
+          statuscode:401,
+          status:false,
+          message:"please login first"
+      })
+  }
+}
 app.use(cors({
     origin:'http://localhost:4200'
     
@@ -41,6 +58,7 @@ app.use(cors({
 //admin
 
         app.post('/login',async (req,res)=>{
+          
             try {
         
                 ds.login(req.body.acno,req.body.pswd).then(result=>{
@@ -65,7 +83,7 @@ app.use(cors({
               }
             })
 
-        app.post('/add',upload.single('file'),(req,res)=>{
+        app.post('/add',verify,upload.single('file'),(req,res)=>{
             console.log('  req.body: ',   req.body);    
             var img = fs.readFileSync(req.file.path);
              var encode_img = img.toString('base64');
@@ -77,22 +95,22 @@ app.use(cors({
             .then(result=>{
              res.status(result.statuscode).json(result)}) })
 
-        app.post('/addclass',(req,res)=>{
+        app.post('/addclass',verify,(req,res)=>{
             ds.addClass(req.body.fees,req.body.className,req.body.description)
             .then(result=>{
                 res.status(result.statuscode).json(result)})  })
 
-        app.patch('/update',(req,res)=>{
+        app.patch('/update',verify,(req,res)=>{
             ds.update(req.body.id,req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,req.body.SelectedCourse)
             .then(result=>{ console.log('req.body.password: ', req.body.password);
             res.status(result.statuscode).json(result)}) })
 
 
-        app.get('/showcust',(req,res)=>{ds.showcust()
+        app.get('/showcust',verify,(req,res)=>{ds.showcust()
             .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
 
-        app.get('/getcourse',(req,res)=>{
+        app.get('/getcourse',verify,(req,res)=>{
             ds.getcourse()
             .then(result=>{
                   res.status(result.statuscode).json(result) })})
@@ -101,7 +119,7 @@ app.use(cors({
             ds.deleteClass(req.params.className ).then(result =>{
                 res.status(result.statuscode).json(result) })})
 
-        app.delete('/deleteCus',(req,res)=>{
+        app.delete('/deleteCus',verify,(req,res)=>{
             let email=req.headers['email']
             console.log('email: ', email);
             console.log('res: ', req.body);
@@ -125,14 +143,14 @@ app.use(cors({
           }
         })   
     
-    app.post('/showstudent',(req,res)=>{
+    app.post('/showstudent',verify,(req,res)=>{
       
       console.log('req.body: ', req.body);
       tds.showstudent(req.body.teacher)
       .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
-      app.post('/addstudent',upload.single('file'),(req,res)=>{
-        console.log('  req.body: ',   req.body);    
+      app.post('/addstudent',verify,upload.single('file'),(req,res)=>{
+        // console.log('  req.body: ',   req.body);    
         var img = fs.readFileSync(req.file.path);
          var encode_img = img.toString('base64');
         var final_img = {
@@ -141,9 +159,12 @@ app.use(cors({
         };
         tds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course,req.body.teacher,req.body.fees)
         .then(result=>{
-         res.status(result.statuscode).json(result)})  })
+         res.status(result.statuscode).json(result)
+        
+        //  console.log(' res.status(result.statuscode).json(result): ',  res.status(result.statuscode).json(result));
+        })  })
  
-         app.delete('/deletestudent/:student',(req,res)=>{
+         app.delete('/deletestudent/:student',verify,(req,res)=>{
           tds.deletestudent(req.params.student ).then(result =>{
               res.status(result.statuscode).json(result) })})
 //student
@@ -165,8 +186,17 @@ app.post('/studentlogin',(req,res)=>{
   // }
   })
          
-    app.post('/getstudent',(req,res)=>{
+    app.post('/getstudent',verify,(req,res)=>{
       
       console.log('req.body: ', req.body);
       sds.showstudent(req.body.mail)
       .then(result=>{ res.status(result.statuscode).json(result)  })  })
+
+      
+
+      app.post('/withdraw',verify,(req,res)=>{
+        sds.withdraw(req.body.user,req.body.amnt).then(result=>{
+        
+            res.status(result.statuscode).json(result) 
+        })
+      })

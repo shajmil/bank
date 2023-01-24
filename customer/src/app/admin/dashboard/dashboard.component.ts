@@ -51,6 +51,7 @@ email:any
   uptdStatus:any=false
   newStatus:any=true;
   viewStatus:any=false
+
  cardStatus:any=true;
  img:any
  listStatus:any=false;

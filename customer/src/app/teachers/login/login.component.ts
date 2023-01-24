@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('course',result.course)
           // localStorage.setItem('teacher',acno)
           localStorage.setItem('token',result.token)
+          localStorage.setItem('role','teacher')
           //  console.log(pswd);
           Swal.fire(
             'LogIn!',

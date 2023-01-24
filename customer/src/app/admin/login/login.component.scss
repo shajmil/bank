@@ -1,59 +1,68 @@
 
 .height{
-    background: rgb(25,23,32);
+    background:#B3E5FC;
     height: 100vh;
 }
 .card{
-    margin-top: 50px;
+    margin-top: 22px;
     border: 1px solid none;
     /* background: url(../../assets/images/brennan-burling-ay53qag90W8-unsplash.jpg); */
     /* background: rgb(25,23,32); */
-    background: linear-gradient(90deg, rgba(25,23,32,1) 0%, rgba(38,37,44,1) 100%);
+    background: linear-gradient(90deg, rgb(200, 199, 207) 0%, #B3E5FC 100%);
     border-radius: 50px;
+    /* From https://css.glass */
+background: rgba(225, 237, 226, 0);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(14.9px);
+-webkit-backdrop-filter: blur(14.9px);
+border: 1px solid rgba(225, 237, 226, 0.39);
 }
 
 h2{
-    color: white;
+    color:f1faee;
     font-weight: 700;
 }
 h4{
-    color: white;
+    color: f1faee;
     font-weight: 400;
 }
 
 .input{
-    background-color: #1F1D24;
-    border: 2px solid #3D3C47;
+    background-color:linear-gradient(90deg, rgb(200, 199, 207) 0%, #B3E5FC 100%);
+    border: 2px solid #d3d3d4;
     border-radius: 10px;
     width: 100%;
     height: 50px;
-    color: white;
+    color: #f1faee;
 }
 
 input:hover{
-    border: 2px solid #0B60DB;
+    border: 2px solid black;
 }
 input:focus{
-    outline: 2px solid #f0ad4e ;
+    outline: 2px solid #f1faee ;
 }
 
 input:visited{
     outline: 2px solid#f0ad4e ;
 }
-
+label{
+    color: #f1faee;
+}
 
 .reg{
     font-weight: bold;
 }
 
 .accc{
-    color: rgb(182,180,187);
+    color:f1faee;
     margin-top: 30%;
 }
 
 a{
     text-decoration: none;
-    color: rgb(182,180,187);
+    color: #000000;
 }
 
 .btn{
@@ -70,4 +79,7 @@ margin-left: 25px;
 
 .dot{
     font-size: 1.8em;
+}
+.btn{
+    background-color: #0288D1;
 }

@@ -1,11 +1,15 @@
 const db =require('./db')
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
+
+
+
 const login =async (acno,pswd) =>{
   const user = await db.admin.findOne({ username:acno })
   // console.log('user: ', user);
-  // console.log(pswd,acno);
+
   const cmp = await bcrypt.compare(pswd, user.password);
+  console.log('cmp: ', cmp);
   if( cmp){
 
     return db.admin.findOne({username:acno}).then( user =>{

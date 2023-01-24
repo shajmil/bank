@@ -68,8 +68,36 @@ const login =(acno,pswd) =>{
             }
 
     })}
+
+    const withdraw=(acno,amnt)=>{
+      // var userDetails=this.userDetails;
+      // console.log('userDetails: ', userDetails);
+      var amount=parseInt(amnt)
+      return db.student.findOne({email:acno}) //port 27017
+      .then(user=>{
+        if(user && user.fees>=amount && amount>0){
+          
+          user.fees-=amount;
+        
+          user.save();
+          return{
+            statuscode:200,
+            status:true,
+            message:`${amount} is paid ...balance due is ${user.fees}`
+          }
+        }
+        else{
+          return{
+            statuscode:401,
+            status:false,
+            message:'please choose current amount'
+          }
+        }
+      })
+    }
+    
   module.exports = {
   
-    login,showstudent
+    login,showstudent,withdraw
 
   }

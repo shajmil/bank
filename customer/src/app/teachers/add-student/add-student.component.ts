@@ -100,10 +100,12 @@ console.log('this.fees: ', this.fees);
           location.reload();
           this.ngOnInit() 
          })
-      },()=>{
+      },(result)=>{
+        
+        console.log('result: ', result);
          Swal.fire({
             icon: 'error',
-            title: 'student with same mail already exist ',
+            title: `${result.error.message}`,
            
           })
       })

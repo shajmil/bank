@@ -99,6 +99,9 @@ openModal() {   this.modalRef = this.modalService.open(AddStudentComponent, {
     this.class=localStorage.getItem('course')
 
   }
+  reload(){
+    location.reload()
+  }
 
 view(t:any){
   

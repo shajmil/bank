@@ -34,10 +34,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DemoComponent } from './admin/about/demo/demo.component';
 import { ProductsComponent } from './admin/about/products/products.component';
 import { ListviewComponent } from './admin/listview/listview.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegistrationComponent } from './admin/registration/registration.component';
 import { ModalComponent } from './admin/modal/modal.component';
 import { NgCreditCardModule } from "angular-credit-card";
+import { InterceptorService } from './headers.interceptor';
+import { NotfoundComponent } from './notfound/notfound.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +55,7 @@ import { NgCreditCardModule } from "angular-credit-card";
     ProductsComponent,
     RegistrationComponent,
     ModalComponent,
+    NotfoundComponent,
 
 
 
@@ -85,7 +89,11 @@ import { NgCreditCardModule } from "angular-credit-card";
     NgxPaginationModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -126,6 +126,7 @@ add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,ima
     const data={
       acno,pswd    
     }
+    console.log('data: ', data);
     this.currentAcno=acno
     this.saveDetails()
     
