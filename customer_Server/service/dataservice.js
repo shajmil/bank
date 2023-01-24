@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 
 
 const login =async (acno,pswd) =>{
-  const user = await db.admin.findOne({ username:acno })
+  
+const user = await db.admin.findOne({ username:acno })
   // console.log('user: ', user);
 
   const cmp = await bcrypt.compare(pswd, user.password);

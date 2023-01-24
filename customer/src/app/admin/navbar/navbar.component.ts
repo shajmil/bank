@@ -29,6 +29,8 @@ acno:any
           'You have been Successfully Logout',
           'success'
         )
+        localStorage.clear();
+
         localStorage.removeItem('currentUser')
         localStorage.removeItem('currentacno')
         this.route.navigate(['/admin'],{ relativeTo: this.r });

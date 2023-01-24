@@ -9,6 +9,8 @@ const fs = require("fs")
 const multer = require("multer")
 app.use(express.json())
 const bcrypt = require("bcryptjs")
+
+require('dotenv').config()
 const verify=(req,res,next)=>{
   try{
   let token=req.headers['token']
@@ -37,7 +39,7 @@ app.use(cors({
     //     next();
     //   });
 
-    app.listen(3000,()=>{
+    app.listen(process.env.PORT || 3000,()=>{
         console.log('sucess');
         })
    
@@ -106,11 +108,11 @@ app.use(cors({
             res.status(result.statuscode).json(result)}) })
 
 
-        app.get('/showcust',verify,(req,res)=>{ds.showcust()
+        app.get('/showcust',(req,res)=>{ds.showcust()
             .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
 
-        app.get('/getcourse',verify,(req,res)=>{
+        app.get('/getcourse',(req,res)=>{
             ds.getcourse()
             .then(result=>{
                   res.status(result.statuscode).json(result) })})
@@ -143,7 +145,7 @@ app.use(cors({
           }
         })   
     
-    app.post('/showstudent',verify,(req,res)=>{
+    app.post('/showstudent',(req,res)=>{
       
       console.log('req.body: ', req.body);
       tds.showstudent(req.body.teacher)
@@ -186,7 +188,7 @@ app.post('/studentlogin',(req,res)=>{
   // }
   })
          
-    app.post('/getstudent',verify,(req,res)=>{
+    app.post('/getstudent',(req,res)=>{
       
       console.log('req.body: ', req.body);
       sds.showstudent(req.body.mail)

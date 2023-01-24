@@ -91,7 +91,7 @@ get f(){ return this.formGroup.controls;}
        ).then((result) => {
          if (result.isConfirmed) {
          
-           this.route.navigate(['studentdash'],{ relativeTo: this.r });
+          this.route.navigateByUrl('students/studentdash')
     
          }
        })

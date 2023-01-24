@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
             
-              this.route.navigate(['dashboard'],{ relativeTo: this.r })
+              this.route.navigateByUrl('teachers')
        
             }
           })
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             
           },result =>{
             alert(result.error.message)
-            this.route.navigateByUrl('login')
+            this.route.navigateByUrl('')
           })
           
       }

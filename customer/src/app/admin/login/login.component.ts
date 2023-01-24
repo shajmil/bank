@@ -65,7 +65,7 @@ get f(){ return this.formGroup.controls;}
           
         },result =>{
           alert(result.error.message)
-          this.route.navigateByUrl('login')
+          this.route.navigateByUrl('')
         })
         
     }
