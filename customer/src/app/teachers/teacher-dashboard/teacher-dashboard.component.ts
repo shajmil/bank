@@ -169,8 +169,9 @@ update(){
  var id =this.id
 //  console.log('id: ', id);
  var gender=this.type
+ console.log('this.formGroup: ', this.formGroup);
  if(this.formGroup.valid){
-  this.ngOnInit() 
+  
 
 } else{
     Swal.fire({
@@ -234,20 +235,6 @@ console.log('this.users: ', this.users);
 }
 }
 key(event:any){
-
-//  if(event.key=='Backspace'){
-  
-//   // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
-//   this.ds.getusers().subscribe((result:any)=>{
-//     // console.log('result: ',);
-//     this.users= result.message
-//   this.users=this.users.filter((re: any) =>{
-//   return re.firstname.toLocaleLowerCase().match(this.filter.toLocaleLowerCase())
-// })
-//   })
-
-// }
-// console.log('this.users: ', this.users);
  
 
 }

@@ -21,7 +21,7 @@ const login =(acno,pswd) =>{
           //  currentAcno=userDetails[acno].acno
           // key=require('crypto').randomBytes(32).toString('hex')
           // const token = jwt.sign(acno,key)
-          const token = jwt.sign(acno,'shajmil2022')
+          const token = jwt.sign(acno,'shajmil')
            return {
            currentuser: user.username,
             statuscode:200,

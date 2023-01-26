@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
       return db.user.findOne({email:acno ,password:pswd}).then( user =>{
 
         if(user){
-          const token = jwt.sign(acno,'shajmil2022')
+          const token = jwt.sign(acno,'shajmil')
           
           return {
           currentuser: user.email,

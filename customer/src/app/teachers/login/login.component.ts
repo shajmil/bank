@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           ).then((result) => {
             if (result.isConfirmed) {
             
-              this.route.navigateByUrl('teachers')
+              this.route.navigateByUrl('teachers/dashboard')
        
             }
           })

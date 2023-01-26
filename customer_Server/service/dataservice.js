@@ -8,6 +8,8 @@ const login =async (acno,pswd) =>{
   
 const user = await db.admin.findOne({ username:acno })
   // console.log('user: ', user);
+try{
+
 
   const cmp = await bcrypt.compare(pswd, user.password);
   console.log('cmp: ', cmp);
@@ -66,6 +68,15 @@ const user = await db.admin.findOne({ username:acno })
             
           }
         }
+      catch(e){
+        return {
+          statuscode:401,
+          status: 'fail',
+          message:' user not found'
+        
+      
+      }
+    }}
 const signUp = async (username,password)=>{
 // var hash;
 

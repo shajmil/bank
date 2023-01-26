@@ -215,6 +215,7 @@ update(){
  var id =this.id
 //  console.log('id: ', id);
  var gender=this.type
+ console.log('this.formGroup.valid: ', this.formGroup);
  if(this.formGroup.valid){
   var result=this.ds.update(id,email,password,firstname,lastname,address,gender,this.SelectedCourse).subscribe((result)=>{
     console.log('result: ', result);
