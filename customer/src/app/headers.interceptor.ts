@@ -29,7 +29,7 @@ export class InterceptorService implements HttpInterceptor {
       this.token = localStorage.getItem('token')||null;
  
     if (this.token || this.skipInterceptor) {
-      const tokenizedReq = req.clone({ headers: req.headers.set('token', 'Bearer ' + this.token) });
+      const tokenizedReq = req.clone({ headers: req.headers.set('token', this.token) });
       console.log('tokenizedReq: ', tokenizedReq);
       return next.handle(tokenizedReq).pipe(map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {

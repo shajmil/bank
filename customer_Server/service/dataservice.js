@@ -121,7 +121,7 @@ const add = (firstname,lastname,email,password,address,gender,final_img,course)=
         return {
           statuscode:401,
           status: 'fail',
-          message:' Customer already exist'
+          message:' Teacher already exist'
         }
       }else{
        const newUser= new db.user( {
@@ -139,7 +139,7 @@ const add = (firstname,lastname,email,password,address,gender,final_img,course)=
         return {
           statuscode:200,
           status: 'success',
-          message:' Customer created'
+          message:' Teacher created'
         }
       }
     
