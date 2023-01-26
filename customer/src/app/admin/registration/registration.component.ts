@@ -32,7 +32,7 @@ if(this.registerForm.valid){
 this.data.signUp(username,pswd).subscribe((result:any)=>{
 //  console.log(pswd);
     alert(result.message)
-    this.route.navigateByUrl('login')
+    this.route.navigateByUrl('/admin')
   
 },(result: { error: { message: any; }; }) =>{
   alert(result.error.message)
