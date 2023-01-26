@@ -10,14 +10,17 @@ const multer = require("multer")
 app.use(express.json())
 const bcrypt = require("bcryptjs")
 
+const jwt = require("jsonwebtoken");
 require('dotenv').config()
 const verify=(req,res,next)=>{
   try{
   let token=req.headers['token']
+  console.log('token:', token);
+  console.log('sads');
+  data = jwt.verify(token,'shajmil')
+  console.log('data: ', data);
   // key=require('crypto').randomBytes(32).toString('hex')
-data = jwt.verify(token,'shajmil2022')
 // console.log()
-console.log(data);
 next();
   }
   catch{
@@ -115,6 +118,7 @@ app.use(cors({
         app.get('/getcourse',(req,res)=>{
             ds.getcourse()
             .then(result=>{
+              console.log('result: ', result);
                   res.status(result.statuscode).json(result) })})
 
         app.delete('/deleteClass/:className',(req,res)=>{

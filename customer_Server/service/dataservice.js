@@ -31,7 +31,8 @@ const user = await db.admin.findOne({ username:acno })
         //  currentAcno=userDetails[acno].acno
         // key=require('crypto').randomBytes(32).toString('hex')
         // const token = jwt.sign(acno,key)
-        const token = jwt.sign(acno,'shajmil2022')
+        const token = jwt.sign(acno,'shajmil')
+        console.log('token: ', token);
 
          return {
          currentuser: user.username,
