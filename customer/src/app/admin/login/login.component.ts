@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit { //3rd execution
     
    }//1st execution
    formGroup=this.fb.group({
-email:['',[Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+email:['',[Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}')]],
 pswd:['',[Validators.required]]
    })
 get f(){ return this.formGroup.controls;}

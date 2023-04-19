@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private data:DatabaseService,private route:Router ,private form:FormBuilder) { }
 registerForm=this.form.group({
-  username:['',[Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+  username:['',[Validators.required,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}')]],
 //  acno:['',[Validators.pattern('[0-9]*')]],
  pswd:['',[Validators.required,Validators.minLength(6)]]
 })

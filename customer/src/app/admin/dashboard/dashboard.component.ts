@@ -75,7 +75,7 @@ openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
 
    formGroup=this.fb.group({
     email:['',[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),Validators.required]],
-    lastname:['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],
+    lastname:['',[Validators.required]],
     firstname:['',[Validators.required,Validators.pattern('[a-zA-Z]*')]],
     gender:[''],
     address:[''],
@@ -254,7 +254,7 @@ image(event:any){
 }
 onChange(e:any) {
   this.type= e.target.value;
-  // console.log('this.type: ', this.type);
+  console.log('this.type: ', this.type);
 }
 
 new(){
@@ -282,6 +282,8 @@ add(){
   var lastname =this.formGroup.value.lastname
   var address =this.formGroup.value.address
   var gender =this.type
+  console.log('gender: ', gender);
+  console.log('this.formGroup.: ', this.formGroup);
   if(this.formGroup.valid){
 this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.selected).subscribe((result)=>{
   console.log('result: ', result);
