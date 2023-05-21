@@ -33,11 +33,15 @@ constructor(private route:Router,public http:HttpClient) {
 
   }
   
-  getemail(){
+  getEmailAndInstuteId(){
     const headerOptions = {
       headers: new HttpHeaders(
+
         {
-          'email': localStorage.getItem('email')||''
+
+          'email': localStorage.getItem('email')||'',
+          'instituteId': localStorage.getItem('instituteId')||''
+
         }
       )
     }
@@ -73,15 +77,15 @@ getDetails(){
     // this.userDetails=JSON.parse(this.userDetails ||'[]')
   // }
 }
-getusers(){
+getusers(instituteId:any){
   // console.log('hi');
-  return this.http.get('http://localhost:3000/showcust') 
+  return this.http.get(`http://localhost:3000/showcust/${instituteId}`) 
 }
-getcourse(){
+getcourse(instituteId:any){
   // console.log('hi');
-  return this.http.get('http://localhost:3000/getcourse') 
+  return this.http.get(`http://localhost:3000/getcourse/${instituteId}`) 
 }
-add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,image:any,course:any){
+add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,image:any,course:any, instituteId:any){
   console.log('course: ', course);
   console.log('image: ', image);
   
@@ -98,12 +102,14 @@ add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,ima
   formdata.append('gender',gender)
   formdata.append('firstname',firstname)
   formdata.append('course',course)
+  formdata.append('instituteId', instituteId)
   // console.log('formdata: ', formdata);
   // const data=
   //   {
   //     firstname,lastname,email,password,address,gender,formdata
   //     }
       // console.log('data: ', data);
+      console.log('formdata: ', formdata);
    return this.http.post('http://localhost:3000/add',formdata ,)
 
   
@@ -170,17 +176,27 @@ remove(email:any){
     email:email
   }
   // console.log('data: ', data);
-  return this.http.delete('http://localhost:3000/deleteCus',this.getemail())
+  return this.http.delete('http://localhost:3000/deleteCus',this.getEmailAndInstuteId())
         // console.log('data: ', data);
   // this.todo.splice(t,1)
   this.saveDetails()
 
   }
-  removeclass(className:any){
+  removeclass(className:any,){
 
- 
+    const headerOptions = {
+      headers: new HttpHeaders(
+
+        {
+
+      
+          'instituteId': localStorage.getItem('instituteId')||''
+
+        }
+      )
+    }
   // console.log('data: ', data);
-  return this.http.delete('http://localhost:3000/deleteClass/'+className)
+  return this.http.delete('http://localhost:3000/deleteClass/'+className,headerOptions)
         // console.log('data: ', data);
   // this.todo.splice(t,1)
   this.saveDetails()
@@ -188,9 +204,9 @@ remove(email:any){
   }
 
   
-  addClass(fees:any,className:any,description:any){
+  addClass(fees:any,className:any,description:any,instituteId:any){
     const data={
-      fees,className,description
+      fees,className,description,instituteId
     
     }
     return this.http.post('http://localhost:3000/addclass',data)

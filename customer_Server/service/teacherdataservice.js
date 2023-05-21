@@ -19,7 +19,8 @@ const jwt = require("jsonwebtoken");
           message:' account login sucess',
           acno,
           course:user.course,
-          token
+          token,
+          instituteId:user.instituteId
         }
          
         
@@ -45,9 +46,9 @@ const jwt = require("jsonwebtoken");
             
           }
         }
-         const showstudent=(teacher)=>{
+         const showstudent=(teacher,instituteId)=>{
           console.log('teacher: ', teacher);
-          return db.student.find({ "teacher": teacher } ).then(users=>{
+          return db.student.find({ "teacher": teacher ,instituteId} ).then(users=>{
               // console.log('users: ', users);
               if(users){
   
@@ -61,7 +62,7 @@ const jwt = require("jsonwebtoken");
   
       })}
      
-      const add = (firstname,lastname,email,password,address,gender,final_img,course,teacher,fees)=>{
+      const add = (firstname,lastname,email,password,address,gender,final_img,course,teacher,fees,instituteId)=>{
         console.log('teacher: ', teacher);
         // console.log('final_img: ', final_img);
         //   console.log('gender: ', gender);
@@ -90,7 +91,7 @@ const jwt = require("jsonwebtoken");
                  firstname,
                  lastname,
                  email,
-                 password,address,gender,img:final_img,course,teacher,fees
+                 password,address,gender,img:final_img,course,teacher,fees,instituteId
                  
               }, )  
                newUser.save()
@@ -117,10 +118,11 @@ const jwt = require("jsonwebtoken");
         
         }
         
-          const deletestudent=(student)=>{
+          const deletestudent=(student,instituteId)=>{
+            console.log('instituteId: ', instituteId);
      
     
-            return db.student.deleteOne({ email:student}).then(users=>{
+            return db.student.deleteOne({ email:student,instituteId}).then(users=>{
               
                 // console.log('users: ', users);
                 return {

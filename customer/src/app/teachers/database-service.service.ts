@@ -23,9 +23,11 @@ export class DatabaseServiceService {
    
    return this.http.post('http://localhost:3000/Teacherlogin',data)}
    getstudent(teacher:any){
+   let instituteId= localStorage.getItem('instituteId')
     // console.log('teacher:any: ', teacher);
     const data={
-   teacher   
+   teacher,   
+   instituteId
     }
     return this.http.post('http://localhost:3000/showstudent',data) 
    }
@@ -33,15 +35,25 @@ export class DatabaseServiceService {
 
    deletestudent(student:any){
 
- 
+    const headerOptions = {
+      headers: new HttpHeaders(
+
+        {
+
+      
+          'instituteId': localStorage.getItem('instituteId')||''
+
+        }
+      )
+    }
     // console.log('data: ', data);
-    return this.http.delete('http://localhost:3000/deletestudent/'+student)
+    return this.http.delete('http://localhost:3000/deletestudent/'+student,headerOptions)
           // console.log('data: ', data);
     // this.todo.splice(t,1)
   
     }
 
-   add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,image:any,fees:any){
+   add(email:any,password:any,firstname:any,lastname:any,address:any,gender:any,image:any,fees:any,instituteId:any){
     console.log('fees: ', fees);
     // console.log('course: ', course);
     console.log('image: ', image);
@@ -63,6 +75,7 @@ export class DatabaseServiceService {
     formdata.append('course',course)
     formdata.append('fees',fees)
     formdata.append('teacher',teacher)
+    formdata.append('instituteId',instituteId)
     // console.log('formdata: ', formdata);
     // const data=
     //   {

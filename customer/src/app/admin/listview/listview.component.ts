@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class ListviewComponent implements OnInit {
   @Input() item:any
   @Input() listStatus:any
+  @Input() instituteId:any
   @Input() total:any
   @ViewChild('filertext')filtertext:any
   filter:any
@@ -26,7 +27,7 @@ export class ListviewComponent implements OnInit {
   
   ngOnInit(): void {
   
-    this.ds.getcourse().subscribe((result:any)=>{
+    this.ds.getcourse(this.instituteId).subscribe((result:any)=>{
      
       this.coursers= result.message
       console.log('this.coursers: ', this.coursers);
@@ -50,8 +51,8 @@ export class ListviewComponent implements OnInit {
     if(event.key=='Backspace'){
      
      // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
-     this.ds.getcourse().subscribe((result:any)=>{
-      console.log('result: ', result);
+     this.ds.getcourse(this.instituteId).subscribe((result:any)=>{
+       
        // console.log('result: ',);
        this.coursers= result.message
        console.log('  this.coursers: ',   this.coursers);

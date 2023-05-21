@@ -32,7 +32,9 @@ gettoken(){
 getstudent(mail:any){
   // console.log('mail:any: ', mail);
   const data={
- mail   
+ mail  , 
+ instituteId:localStorage.getItem('instituteId')
+ 
   }
   return this.http.post('http://localhost:3000/getstudent',data) 
  }

@@ -78,10 +78,12 @@ get f(){ return this.formGroup.controls;}
 
 
      this.database.login(acno,pswd).subscribe((result:any)=>{
-       console.log('result: ', result);
+        
        localStorage.setItem('currentUser',result.acno)
        localStorage.setItem('token',result.token)
        localStorage.setItem('role','student')
+       localStorage.setItem('instituteId',result.instituteId)
+
 
        //  console.log(pswd);
        Swal.fire(

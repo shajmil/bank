@@ -33,11 +33,12 @@ export class LoginComponent implements OnInit {
   
   
         this.database.login(acno,pswd).subscribe((result:any)=>{
-          console.log('result: ', result);
+           
           localStorage.setItem('currentUser',result.currentuser)
           localStorage.setItem('course',result.course)
           // localStorage.setItem('teacher',acno)
           localStorage.setItem('token',result.token)
+          localStorage.setItem('instituteId',result.instituteId)
           localStorage.setItem('role','teacher')
           //  console.log(pswd);
           Swal.fire(

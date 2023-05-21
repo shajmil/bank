@@ -80,7 +80,7 @@ export class StudentListComponent implements OnInit {
      
   //    // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
   //    this.ds.getcourse().subscribe((result:any)=>{
-  //     console.log('result: ', result);
+  //      
   //      // console.log('result: ',);
   //      this.coursers= result.message
   //      console.log('  this.coursers: ',   this.coursers);

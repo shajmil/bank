@@ -79,6 +79,7 @@ app.use(cors({
         app.post('/register',async (req,res)=>{
             try {
                 const hashedPwd = await bcrypt.hash(req.body.password, 10);
+                console.log('(req.body.password: ', (req.body.password));
                 console.log('hashedPwd: ', hashedPwd);
                 ds.signUp(req.body.username,hashedPwd).then(result=>{res.status(result.statuscode).json(result)})
         
@@ -96,12 +97,13 @@ app.use(cors({
                 data:new Buffer.from(encode_img,'base64'),
                 contentType:req.file.mimetype,
             };
-            ds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course)
+            console.log('req.body.instituteId: ', req.body.instituteId);
+            ds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course, req.body.instituteId)
             .then(result=>{
              res.status(result.statuscode).json(result)}) })
 
         app.post('/addclass',verify,(req,res)=>{
-            ds.addClass(req.body.fees,req.body.className,req.body.description)
+            ds.addClass(req.body.fees,req.body.className,req.body.description,req.body.instituteId)
             .then(result=>{
                 res.status(result.statuscode).json(result)})  })
 
@@ -111,25 +113,34 @@ app.use(cors({
             res.status(result.statuscode).json(result)}) })
 
 
-        app.get('/showcust',(req,res)=>{ds.showcust()
+        app.get('/showcust/:instituteId',(req,res)=>{
+          console.log('req: ', req.params);
+          
+          ds.showcust(req.params.instituteId)
             .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
 
-        app.get('/getcourse',(req,res)=>{
-            ds.getcourse()
+        app.get('/getcourse/:instituteId',(req,res)=>{
+          console.log('req: ', req.params);
+            ds.getcourse(req.params.instituteId)
             .then(result=>{
-              console.log('result: ', result);
+               
                   res.status(result.statuscode).json(result) })})
 
         app.delete('/deleteClass/:className',(req,res)=>{
-            ds.deleteClass(req.params.className ).then(result =>{
+          console.log('req.headers: ', req.headers);
+          let instituteId=req.headers['instituteId']
+          console.log('instituteId: ', instituteId);
+
+            ds.deleteClass(req.params.className,instituteId ).then(result =>{
                 res.status(result.statuscode).json(result) })})
 
         app.delete('/deleteCus',verify,(req,res)=>{
             let email=req.headers['email']
+            let instituteId=req.headers['instituteId']
             console.log('email: ', email);
             console.log('res: ', req.body);
-           ds.deleteCus(email).then(result=>{
+           ds.deleteCus(email,instituteId).then(result=>{
             res.status(result.statuscode).json(result)}) })
 
 
@@ -152,7 +163,7 @@ app.use(cors({
     app.post('/showstudent',(req,res)=>{
       
       console.log('req.body: ', req.body);
-      tds.showstudent(req.body.teacher)
+      tds.showstudent(req.body.teacher,req.body.instituteId)
       .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
       app.post('/addstudent',verify,upload.single('file'),(req,res)=>{
@@ -163,7 +174,8 @@ app.use(cors({
             data:new Buffer.from(encode_img,'base64'),
             contentType:req.file.mimetype,
         };
-        tds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course,req.body.teacher,req.body.fees)
+        console.log('req.body: ', req.body);
+        tds.add(req.body.firstname,req.body.lastname,req.body.email,req.body.password,req.body.address,req.body.gender,final_img,req.body.course,req.body.teacher,req.body.fees,req.body.instituteId)
         .then(result=>{
          res.status(result.statuscode).json(result)
         
@@ -171,7 +183,8 @@ app.use(cors({
         })  })
  
          app.delete('/deletestudent/:student',verify,(req,res)=>{
-          tds.deletestudent(req.params.student ).then(result =>{
+           console.log('req.headers: ', req.headers);
+          tds.deletestudent(req.params.student,req.headers['instituteid'] ).then(result =>{
               res.status(result.statuscode).json(result) })})
 //student
 
@@ -195,7 +208,8 @@ app.post('/studentlogin',(req,res)=>{
     app.post('/getstudent',(req,res)=>{
       
       console.log('req.body: ', req.body);
-      sds.showstudent(req.body.mail)
+      console.log('req.body.instituteId: qqqqqqqqqqqqqqqq', req.body.instituteId);
+      sds.showstudent(req.body.mail,req.body.instituteId)
       .then(result=>{ res.status(result.statuscode).json(result)  })  })
 
       

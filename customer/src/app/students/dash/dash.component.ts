@@ -130,7 +130,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     var result = this.ds.withdraw(this.current,this.amnt).subscribe((result:any)=>{
   
       if(result){
-        // console.log('result: ', result);
+        //  
         alert(`${result.message}`)
         this.form.reset()
         location.reload();
@@ -165,7 +165,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   var result = this.ds.deposit(acno,pswd,amnt).subscribe((result:any)=>{
   
     if(result){
-      // console.log('result: ', result);
+      //  
       alert(` ${result.message}`)
       this.form.reset()
     }

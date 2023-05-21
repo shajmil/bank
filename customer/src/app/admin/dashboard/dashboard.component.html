@@ -68,7 +68,7 @@
         </pagination-controls>
       </div>
     </div>
-    <app-listview [item]="coursers" [listStatus]="listStatus" [total]="totalRecords" ></app-listview>
+    <app-listview [item]="coursers" [listStatus]="listStatus" [instituteId]="instituteId"  [total]="totalRecords" ></app-listview>
     </div>
     </div>
         
@@ -128,7 +128,9 @@
                   <label for="b">female</label>
                
                 </div>
+                <label for="exampleInputEmail1" class="form-label"> Profile Photo <span class="text-danger"> *</span></label>
                 <div class="mb-3">
+
                   <input type="file" #myInput name="image" id="image" (change)="image($event)" accept="image/*" >
                 </div>
                 <div class="mb-3">
@@ -141,8 +143,7 @@
                     </mat-select>
                   </mat-form-field>
                 
-                  
-                {{selected}}             </div>
+                    </div>
             <div class="d-flex justify-content-between">
             
             

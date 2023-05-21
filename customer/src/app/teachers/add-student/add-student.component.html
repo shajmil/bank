@@ -52,13 +52,15 @@
     <label for="b">female</label>
  
   </div>
+  <label for="exampleInputEmail1" class="form-label"> Profile Photo <span class="text-danger"> *</span></label>
+
   <div class="mb-3">
     <input type="file" #myInput name="image" id="image" (change)="image($event)" accept="image/*" >
   </div>
   <div class="mb-3">
   
     
-  {{selected}}       <div class="d-flex justify-content-between">
+       <div class="d-flex justify-content-between">
 
 
     <button type="submit" class="btn btn-success"[disabled]="!formGroup.valid"  (click)="close('toggle button')" (click)="add()">Submit</button>

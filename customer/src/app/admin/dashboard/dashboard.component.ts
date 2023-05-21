@@ -45,7 +45,7 @@ email:any
   page:any=1
   SelectedCourse:any
   selected:any='not asigned'
-
+   instituteId :any
   filter:any
   showFiller = false;
   uptdStatus:any=false
@@ -85,8 +85,10 @@ openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
     get f(){ return this.formGroup.controls;}
 
   ngOnInit(): void {
+
+    this.instituteId=localStorage.getItem('instituteId')
     this.selected='not assaigned'
-    this.ds.getcourse().subscribe((result:any)=>{
+    this.ds.getcourse( this.instituteId).subscribe((result:any)=>{
      
       this.coursers= result.message
       console.log('this.coursers: ', this.coursers);
@@ -117,7 +119,7 @@ openModal() {   this.modalRef = this.modalService.open(ModalComponent, {
     this.images.push(this.imageurl)
        
       };
-    this.ds.getusers().subscribe((result:any)=>{
+    this.ds.getusers(this.instituteId).subscribe((result:any)=>{
       // console.log('result: ',);
  this.images=[]
  console.log('result.message: ', result.message);
@@ -218,7 +220,7 @@ update(){
  console.log('this.formGroup.valid: ', this.formGroup);
  if(this.formGroup.valid){
   var result=this.ds.update(id,email,password,firstname,lastname,address,gender,this.SelectedCourse).subscribe((result)=>{
-    console.log('result: ', result);
+     
   
     Swal.fire(
       'Good job!',
@@ -229,7 +231,7 @@ update(){
       this.ngOnInit() 
      })
   },result=>{
-    console.log('result: ', result);
+     
      Swal.fire({
         icon: 'error',
         title: 'email already exist',
@@ -258,12 +260,12 @@ onChange(e:any) {
 }
 
 new(){
-  this.ngOnInit();
-this.uptdStatus=false
-  this.newStatus=true
-  this.myInputVariable.nativeElement.value = "";
+ this.selecetedFile=null;
 
-  this.viewStatus=false
+  this.viewStatus=false;
+  this.uptdStatus=false
+  this.newStatus=true
+ 
   this.formGroup.get('email')?.setValue('');
   this.formGroup.get('lastname')?.setValue('');
   this.formGroup.get('firstname')?.setValue('');
@@ -271,11 +273,16 @@ this.uptdStatus=false
 
   this.formGroup.get('gender')?.setValue('');
   this.formGroup.get('password')?.setValue('');
+  this.ngOnInit();
+
+
+  this.myInputVariable.nativeElement.value = "";
+ 
 }
 
 
-add(){
-
+add(){ 
+ 
   var email =this.formGroup.value.email
   var password =this.formGroup.value.password
   var firstname =this.formGroup.value.firstname
@@ -285,8 +292,8 @@ add(){
   console.log('gender: ', gender);
   console.log('this.formGroup.: ', this.formGroup);
   if(this.formGroup.valid){
-this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.selected).subscribe((result)=>{
-  console.log('result: ', result);
+this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.selected, this.instituteId).subscribe((result)=>{
+   
 
   Swal.fire(
     'Good job!',
@@ -338,7 +345,7 @@ key(event:any){
  if(event.key=='Backspace'){
   
   // console.log('this.filter: ', this.filtertext.nativeElement.innerHTML);
-  this.ds.getusers().subscribe((result:any)=>{
+  this.ds.getusers(this.instituteId).subscribe((result:any)=>{
     // console.log('result: ',);
     this.users= result.message
   this.users=this.users.filter((re: any) =>{

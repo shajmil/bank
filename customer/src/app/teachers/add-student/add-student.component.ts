@@ -22,12 +22,14 @@ export class AddStudentComponent implements OnInit {
   coursers: any;
   fees: any;
   class:any
+  instituteId: any;
 
   constructor(public modalRef: MdbModalRef<AddStudentComponent>,private fb:FormBuilder,private ds:DatabaseServiceService ,private ads:DatabaseService ,private route:Router,) {}
 
   ngOnInit(): void {
+    this.instituteId=localStorage.getItem('instituteId')
     this.class=localStorage.getItem('course')
-    this.ads.getcourse().subscribe((result:any)=>{
+    this.ads.getcourse(this.instituteId).subscribe((result:any)=>{
      
       this.coursers= result.message
       // console.log('this.coursers: ', this.coursers);
@@ -88,9 +90,9 @@ console.log('this.fees: ', this.fees);
  
       // this.fees=localStorage.getItem('fees')
       // console.log('this.fees: ', this.fees);
-      this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.fees).subscribe((result)=>{
+      this.ds.add(email,password,firstname,lastname,address,gender,this.selecetedFile,this.fees,localStorage.getItem('instituteId')).subscribe((result)=>{
   
-        console.log('result: ', result);
+        //  
       
         Swal.fire(
           'Good job!',
@@ -102,7 +104,7 @@ console.log('this.fees: ', this.fees);
          })
       },(result)=>{
         
-        console.log('result: ', result);
+         
          Swal.fire({
             icon: 'error',
             title: `${result.error.message}`,

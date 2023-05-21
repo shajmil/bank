@@ -42,7 +42,8 @@ try{
           status: 'success',
           message:' account login sucess',
           acno,
-        token
+        token,
+        instituteId:user.instituteId
         }
          
         
@@ -78,6 +79,7 @@ try{
       }
     }}
 const signUp = async (username,password)=>{
+  console.log('username: ', username);
 // var hash;
 
   return db.admin.findOne({username}).then(users=>{
@@ -113,8 +115,8 @@ const signUp = async (username,password)=>{
   ) 
 
 }
-const add = (firstname,lastname,email,password,address,gender,final_img,course)=>{
-  console.log('final_img: ', final_img);
+const add = (firstname,lastname,email,password,address,gender,final_img,course,instituteId)=>{
+  // console.log('final_img: ', final_img);
     // console.log('gender: ', gender);
     // console.log('address: ', address);
     // console.log('password: ', password);
@@ -133,14 +135,14 @@ const add = (firstname,lastname,email,password,address,gender,final_img,course)=
         return {
           statuscode:401,
           status: 'fail',
-          message:' Teacher already exist'
+          message:' Teacher already taken'
         }
       }else{
        const newUser= new db.user( {
            firstname,
            lastname,
            email,
-           password,address,gender,img:final_img,course
+           password,address,gender,img:final_img,course,instituteId
            
         }, )  
         // console.log('newUser: ', newUser);
@@ -157,7 +159,7 @@ const add = (firstname,lastname,email,password,address,gender,final_img,course)=
     
     }
     ) }
-const addClass = (fees,className,description)=>{
+const addClass = (fees,className,description,instituteId)=>{
   console.log('className: ', className);
   // console.log('final_img: ', final_img);
     // console.log('gender: ', gender);
@@ -169,7 +171,7 @@ const addClass = (fees,className,description)=>{
 
     
  
-    return db.classes.findOne({className}).then(users=>{
+    return db.classes.findOne({className,instituteId}).then(users=>{
       console.log('users: ', users);
   
    
@@ -186,6 +188,7 @@ const addClass = (fees,className,description)=>{
            fees,
            className,
            description,
+           instituteId
            
         }, )  
         // console.log('newUser: ', newUser);
@@ -251,8 +254,8 @@ const update = (id,firstname,lastname,email,password,address,gender,SelectedCour
       }
 
     }) }
-    const showcust=()=>{
-        return db.user.find().then(users=>{
+    const showcust=(instituteId)=>{
+        return db.user.find({ "instituteId": instituteId }).then(users=>{
             // console.log('users: ', users);
             if(users){
 
@@ -270,8 +273,8 @@ const update = (id,firstname,lastname,email,password,address,gender,SelectedCour
             }
 
     })}
-    const getcourse=()=>{
-        return db.classes.find().then(users=>{
+    const getcourse=(instituteId)=>{
+        return db.classes.find({ "instituteId": instituteId }).then(users=>{
             // console.log('users: ', users);
             if(users){
 
@@ -289,10 +292,10 @@ const update = (id,firstname,lastname,email,password,address,gender,SelectedCour
             }
 
     })}
-    const deleteCus=(email)=>{
+    const deleteCus=(email,instituteId)=>{
      
     
-        return db.user.deleteOne({ email: email }).then(users=>{
+        return db.user.deleteOne({ email: email,instituteId }).then(users=>{
           
             // console.log('users: ', users);
             return {
@@ -303,10 +306,12 @@ const update = (id,firstname,lastname,email,password,address,gender,SelectedCour
     }
     )
   }
-    const deleteClass=(className)=>{
+    const deleteClass=(className,instituteId)=>{
+      console.log('instituteId: ', instituteId);
      
     
-        return db.classes.deleteOne({ className}).then(users=>{
+      console.log('className: ', className);
+        return db.classes.deleteOne({ className,instituteId}).then(users=>{
           
             // console.log('users: ', users);
             return {

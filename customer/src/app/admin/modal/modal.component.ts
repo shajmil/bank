@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
   }
 
   formGroup=this.fb.group({
-    className:['',[Validators.pattern('[a-zA-Z]*'),Validators.required]],
+    className:['',[Validators.required]],
     fees:['',[Validators.required,Validators.pattern('[0-9]*')]],
 
     description:[''],
@@ -35,13 +35,14 @@ export class ModalComponent implements OnInit {
     this.modalRef.close(closeMessage)
   }
 add(){
+  let instituteId= localStorage.getItem('instituteId')
   var fees =this.formGroup.value.fees
   var className =this.formGroup.value.className
   var description =this.formGroup.value.description
 
   if(this.formGroup.valid){
-this.ds.addClass(fees,className,description).subscribe((result: any)=>{
-  console.log('result: ', result);
+this.ds.addClass(fees,className,description,instituteId).subscribe((result: any)=>{
+   
 
   Swal.fire(
     'Good job!',

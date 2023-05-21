@@ -29,6 +29,7 @@ const login =(acno,pswd) =>{
             message:' account login sucess',
             acno,
           token
+      ,   instituteId:user.instituteId
           }
            
           
@@ -53,9 +54,9 @@ const login =(acno,pswd) =>{
        
       })}
 
-      const showstudent=(mail)=>{
+      const showstudent=(mail,instituteId)=>{
         console.log('mail: ', mail);
-        return db.student.find({ "email": mail } ).then(users=>{
+        return db.student.find({ "email": mail ,instituteId} ).then(users=>{
             // console.log('users: ', users);
             if(users){
 

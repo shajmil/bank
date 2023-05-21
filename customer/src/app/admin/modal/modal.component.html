@@ -24,6 +24,7 @@
             
             <input type="text" class="form-control" id="fees" formControlName="fees"  type="text" name="fees" >
             <p [ngStyle]="{color:'red'}" *ngIf=" f.fees.errors?.['required'] && f.fees?.touched"> this field must not be empty</p>
+            <p [ngStyle]="{color:'red'}" *ngIf=" f.fees.errors?.['pattern'] && f.fees?.touched"> this field must be numeric</p>
             
           </div>
         

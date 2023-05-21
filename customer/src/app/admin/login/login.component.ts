@@ -45,8 +45,9 @@ get f(){ return this.formGroup.controls;}
 
 
       this.database.login(acno,pswd).subscribe((result:any)=>{
-        // console.log('result: ', result);
+        //  
         localStorage.setItem('currentUser',result.currentuser)
+        localStorage.setItem('instituteId',result.instituteId)
         localStorage.setItem('token',result.token)
         localStorage.setItem('role','admin')
         //  console.log(pswd);
